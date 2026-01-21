@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:elevation="4dp"
+    app:cardCornerRadius="8dp"
+    android:layout_marginBottom="8dp"
+    android:backgroundTint="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_margin="8dp"
+        android:weightSum="10"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Image (Chiếm 3/10 chiều rộng) -->
+        <ImageView
+            android:id="@+id/iv_admin_item_chi_tiet_don_hang_hinh_anh"
+            android:layout_weight="3"
+            android:background="@drawable/image_backgroud"
+            android:src="@drawable/ic_hinh_anh"
+            android:scaleType="centerCrop"
+            android:layout_width="0dp"
+            android:layout_height="80dp" />
+
+        <!-- Khu vực Nội dung Text (Chiếm 7/10 chiều rộng) -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="7"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="12dp">
+
+            <!-- Tên sản phẩm -->
+            <TextView
+                android:id="@+id/tv_admin_item_chi_tiet_don_hang_ten_san_pham"
+                android:text="Tên sản phẩm"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:gravity="start"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!-- Thuộc tính (Optional) -->
+            <TextView
+                android:id="@+id/tv_admin_item_chi_tiet_don_hang_thuoc_tinh"
+                android:text="Phân loại: Xanh, XL"
+                android:textSize="12sp"
+                android:textColor="@color/Gray"
+                android:layout_marginTop="4dp"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!-- Spacer -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="4dp">
+
+                <TextView
+                    android:id="@+id/tv_admin_item_chi_tiet_don_hang_gia"
+                    android:text="1.200.000 ₫"
+                    android:textColor="@color/Nude_pink"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/tv_admin_item_chi_tiet_don_hang_so_luong"
+                    android:text="x1"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

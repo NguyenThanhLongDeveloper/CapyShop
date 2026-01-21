@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:elevation="8dp"
+    app:cardCornerRadius="12dp"
+    android:layout_margin="5dp"
+    android:backgroundTint="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_margin="5dp"
+        android:weightSum="10"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Image (Chiếm 3/10 chiều rộng, chiều cao cố định 100dp) -->
+        <ImageView
+            android:id="@+id/iv_item_hinh_anh_san_pham_chi_tiet_don_hang"
+            android:layout_weight="3"
+            android:background="@drawable/image_backgroud"
+            android:src="@drawable/ic_hinh_anh"
+            android:layout_width="0dp"
+            android:layout_height="100dp"/>
+
+        <!-- Khu vực Nội dung Text (Chiếm 7/10 chiều rộng) -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="7"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp" >
+
+            <!-- Tên sản phẩm (Căn trên cùng, căn trái) -->
+            <TextView
+                android:id="@+id/tv_item_ten_san_pham_chi_tiet_don_hang"
+                android:text="Tên sản phẩm"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:gravity="start"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <!-- Spacer (Đẩy nội dung phía dưới xuống đáy) -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tv_item_thuoc_tinh_san_pham_don_hang"
+                android:text="Thuộc tính"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <!-- Số lượng (Căn phải, đáy) -->
+            <TextView
+                android:id="@+id/tv_item_so_luong_san_pham_chi_tiet_don_hang"
+                android:text="x 1"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="4dp" />
+
+            <!-- Giá (Căn phải, đáy) -->
+            <TextView
+                android:id="@+id/tv_item_gia_san_pham_chi_tiet_don_hang"
+                android:text="Giá : 1.200.000 ₫"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="4dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

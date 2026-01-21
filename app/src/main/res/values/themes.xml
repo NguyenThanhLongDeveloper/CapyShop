@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Theme chính sử dụng Material3 -->
+    <style name="Theme.CapyShop" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Các màu chính (Primary) - Thường là màu thương hiệu -->
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/purple_200</item>
+        <item name="colorOnPrimaryContainer">@color/purple_700</item>
+
+        <!-- Các màu phụ (Secondary) - Dùng cho chip, tab, filter -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondaryContainer">#CCE8E3</item>
+        <item name="colorOnSecondaryContainer">#00201A</item>
+
+        <!-- Màu nền ứng dụng -->
+        <item name="android:windowBackground">@color/white</item>
+        <item name="colorSurface">#FBFCFF</item>
+        <item name="colorOnSurface">#191C1E</item>
+
+        <!-- Tắt các thuộc tính cũ của M2 để tránh xung đột -->
+        <item name="colorPrimaryVariant" tools:ignore="MissingDefaultResource">@color/purple_700</item>
+
+        <!-- Tùy chỉnh thanh điều hướng hệ thống hiện đại -->
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+
+    </style>
+
+    <!-- Style dành riêng cho các Button bo tròn cực đại (chuẩn M3) -->
+    <style name="Widget.CapyShop.Button" parent="Widget.Material3.Button">
+        <item name="shapeAppearance">@style/ShapeAppearance.CapyShop.MediumComponent</item>
+    </style>
+
+    <style name="ShapeAppearance.CapyShop.MediumComponent"
+        parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <style name="BottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
+    </style>
+
+    <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+    <style name="roundedCorners12">
+        <item name="cornerSize">12dp</item>
+    </style>
+
+</resources>

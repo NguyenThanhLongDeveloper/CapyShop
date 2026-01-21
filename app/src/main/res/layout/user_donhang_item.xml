@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="6dp"
+    android:layout_marginVertical="8dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="3dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingBottom="12dp">
+
+        <!-- 1. HEADER: Mã đơn hàng và Trạng thái -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="12dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="8dp">
+
+            <!-- Label Mã Đơn hàng -->
+            <TextView
+                android:id="@+id/tv_label_ma_don_hang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mã đơn hàng: "
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Mã Đơn hàng -->
+            <TextView
+                android:id="@+id/tv_item_ma_don_hang"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/tv_item_trang_thai_don_hang"
+                app:layout_constraintStart_toEndOf="@+id/tv_label_ma_don_hang"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="ABC-123456" />
+
+            <!-- Trạng thái Đơn hàng -->
+            <TextView
+                android:id="@+id/tv_item_trang_thai_don_hang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Đang giao hàng" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- 2. KHU VỰC SẢN PHẨM: RecyclerView chứa item_chi_tiet_don_hang.xml -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_item_danh_sach_san_pham_don_hang"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
+            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="12dp"
+            android:background="#EEEEEE" />
+        <TextView
+            android:id="@+id/tv_item_mo_rong_don_hang"
+            android:text="xem thêm "
+            android:textColor="@color/black"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <!-- 3. FOOTER: Tổng kết và Nút hành động -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="12dp"
+            android:paddingTop="8dp">
+
+            <!-- Tổng số lượng sản phẩm (Label chính) -->
+            <TextView
+                android:id="@+id/tv_label_tong_so_luong_san_pham"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text= "Tổng số tiền " />
+
+            <!-- Tổng số lượng sản phẩm (Phần bổ sung) -->
+            <TextView
+                android:id="@+id/tv_item_tong_so_luong_san_pham_don_hang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@+id/tv_label_tong_so_luong_san_pham"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text=" (5 sản phẩm):" />
+
+            <!-- Tổng giá sản phẩm -->
+            <TextView
+                android:id="@+id/tv_item_tong_tien_san_pham_don_hang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBaseline_toBaselineOf="@+id/tv_label_tong_so_luong_san_pham"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="347.600₫" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

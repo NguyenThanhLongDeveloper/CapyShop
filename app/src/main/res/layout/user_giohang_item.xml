@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:elevation="8dp"
+    app:cardCornerRadius="12dp"
+    android:layout_margin="5dp"
+    android:backgroundTint="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_margin="5dp"
+        android:weightSum="10"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <CheckBox
+            android:id="@+id/cb_item_gio_hang"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/iv_item_hinh_anh_gio_hang"
+            android:layout_weight="3"
+            android:background="@drawable/image_backgroud"
+            android:src="@drawable/ic_hinh_anh"
+            android:layout_width="0dp"
+            android:layout_height="100dp"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="7"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp">
+
+            <TextView
+                android:id="@+id/tv_item_ten_gio_hang"
+                android:text="Tên sản phẩm"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:gravity="start"
+                android:textStyle="bold"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_item_thuoc_tinh_gio_hang"
+                android:text="Thuộc tính"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_item_gia_gio_hang"
+                android:text="Giá : 1.200.000 ₫"
+                android:textColor="@color/red"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iv_item_tru_gio_hang"
+                    android:src="@drawable/ic_giam_so_luong"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"/>
+
+                <TextView
+                    android:id="@+id/tv_item_so_luong_gio_hang"
+                    android:text="1"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"/>
+
+                <ImageView
+                    android:id="@+id/iv_item_cong_gio_hang"
+                    android:src="@drawable/ic_tang_so_luong"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_item_xoa_gio_hang"
+            android:src="@drawable/ic_xoa"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"/>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

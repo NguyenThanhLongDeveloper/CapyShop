@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginBottom="12dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <!-- Header: Mã đơn + Ngày đặt -->
+        <TextView
+            android:id="@+id/tv_admin_item_don_hang_ma_don_hang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#E3F2FD"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:text="#DH-49282"
+            android:textColor="@color/Nude_pink"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_admin_item_don_hang_ngay_dat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="15 phút trước"
+            android:textColor="@color/Gray"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_admin_item_don_hang_ma_don_hang"
+            app:layout_constraintStart_toEndOf="@id/tv_admin_item_don_hang_ma_don_hang"
+            app:layout_constraintTop_toTopOf="@id/tv_admin_item_don_hang_ma_don_hang" />
+
+
+        <!-- Divider 1 -->
+        <View
+            android:id="@+id/v_admin_item_don_hang_ngan_cach_1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:background="#F5F5F5"
+            app:layout_constraintTop_toBottomOf="@id/tv_admin_item_don_hang_ma_don_hang" />
+
+        <!-- User Info: Avatar (Left) + Name -->
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_admin_item_don_hang_anh_dai_dien_nguoi_dung"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="12dp"
+            android:src="@drawable/ic_hinh_anh"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/v_admin_item_don_hang_ngan_cach_1" />
+
+        <TextView
+            android:id="@+id/tv_admin_item_don_hang_ten_nguoi_dung"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="Phạm Thị Minh Thư"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/civ_admin_item_don_hang_anh_dai_dien_nguoi_dung"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/civ_admin_item_don_hang_anh_dai_dien_nguoi_dung"
+            app:layout_constraintTop_toTopOf="@id/civ_admin_item_don_hang_anh_dai_dien_nguoi_dung" />
+
+        <!-- Product List -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_admin_item_don_hang_chi_tiet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@id/civ_admin_item_don_hang_anh_dai_dien_nguoi_dung" />
+
+        <!-- View More + Total -->
+        <TextView
+            android:id="@+id/tv_admin_item_don_hang_xem_them_chi_tiet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="+ 2 sản phẩm khác"
+            android:textColor="@color/Gray"
+            android:textSize="13sp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_admin_item_don_hang_chi_tiet" />
+
+        <TextView
+            android:id="@+id/tv_admin_item_don_hang_tong_tien"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="1,250,000 đ"
+            android:textColor="@color/Nude_pink"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_admin_item_don_hang_chi_tiet" />
+
+        <!-- make sure Total aligns with View More if View More is visible, or just below Recycler -->
+
+        <!-- Divider 2 -->
+        <View
+            android:id="@+id/v_admin_item_don_hang_ngan_cach_2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:background="#F5F5F5"
+            app:layout_constraintTop_toBottomOf="@id/tv_admin_item_don_hang_tong_tien" />
+
+        <!-- Actions -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/v_admin_item_don_hang_ngan_cach_2">
+
+            <TextView
+                android:id="@+id/tv_admin_item_don_hang_trang_thai"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:drawablePadding="6dp"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="6dp"
+                android:text="CHỜ XÁC NHẬN"
+                android:textColor="@color/Nude_pink"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/bt_admin_item_don_hang_xac_nhan"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:background="@drawable/button_backgroud"
+                android:paddingHorizontal="20dp"
+                android:text="Xác nhận ngay"
+                android:gravity="center"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

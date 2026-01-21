@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bottom_sheet_backgroud"
+    android:paddingBottom="24dp">
+
+    <!-- Handle indicator mượt mà ở trên đầu -->
+    <View
+        android:id="@+id/v_admin_thanh_keo_bo_loc"
+        android:layout_width="45dp"
+        android:layout_height="4dp"
+        android:layout_marginTop="12dp"
+        android:background="#DDDDDD"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_admin_tieu_de_bo_loc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Lọc Tổng Doanh Thu"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/v_admin_thanh_keo_bo_loc" />
+
+    <View
+        android:id="@+id/v_admin_duong_ke_tieu_de_bo_loc"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:background="#EEEEEE"
+        app:layout_constraintTop_toBottomOf="@id/tv_admin_tieu_de_bo_loc" />
+
+    <!-- Khoảng thời gian Section -->
+    <TextView
+        android:id="@+id/tv_admin_nhan_khoang_thoi_gian_bo_loc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Khoảng thời gian"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/v_admin_duong_ke_tieu_de_bo_loc" />
+
+    <TextView
+        android:id="@+id/bt_admin_dat_lai_bo_loc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:text="Reset"
+        android:textColor="@color/Nude_pink"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_admin_nhan_khoang_thoi_gian_bo_loc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_admin_nhan_khoang_thoi_gian_bo_loc" />
+
+    <!-- Từ ngày -->
+    <TextView
+        android:id="@+id/tv_admin_nhan_tu_ngay_bo_loc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Từ ngày"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/tv_admin_nhan_khoang_thoi_gian_bo_loc"
+        app:layout_constraintTop_toBottomOf="@id/tv_admin_nhan_khoang_thoi_gian_bo_loc" />
+
+    <LinearLayout
+        android:id="@+id/ll_admin_khung_tu_ngay_bo_loc"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/chua_chon_backgroud"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="12dp"
+        app:layout_constraintEnd_toStartOf="@+id/gl_admin_trung_tam_doc_bo_loc"
+        app:layout_constraintStart_toStartOf="@id/tv_admin_nhan_tu_ngay_bo_loc"
+        app:layout_constraintTop_toBottomOf="@id/tv_admin_nhan_tu_ngay_bo_loc">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_bo_loc"
+            app:tint="@color/black" />
+
+        <TextView
+            android:id="@+id/tv_admin_tu_ngay_bo_loc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="01/10/2023"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <!-- Đến ngày -->
+    <TextView
+        android:id="@+id/tv_admin_nhan_den_ngay_bo_loc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Đến ngày"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/ll_admin_khung_den_ngay_bo_loc"
+        app:layout_constraintTop_toTopOf="@id/tv_admin_nhan_tu_ngay_bo_loc" />
+
+    <LinearLayout
+        android:id="@+id/ll_admin_khung_den_ngay_bo_loc"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/chua_chon_backgroud"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="12dp"
+        app:layout_constraintEnd_toEndOf="@id/bt_admin_dat_lai_bo_loc"
+        app:layout_constraintTop_toTopOf="@id/ll_admin_khung_tu_ngay_bo_loc">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_bo_loc"
+            app:tint="@color/black" />
+
+        <TextView
+            android:id="@+id/tv_admin_den_ngay_bo_loc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="31/10/2023"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_admin_trung_tam_doc_bo_loc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <!-- Calendar View trong Card cho đẹp -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_admin_khung_lich_bo_loc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginHorizontal="20dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_admin_khung_tu_ngay_bo_loc">
+
+        <CalendarView
+            android:id="@+id/cv_admin_lich_bo_loc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </androidx.cardview.widget.CardView>
+
+    <!-- Nút Áp dụng -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/bt_admin_ap_dung_bo_loc"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/button_backgroud"
+        android:text="Áp dụng bộ lọc"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/cv_admin_khung_lich_bo_loc" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

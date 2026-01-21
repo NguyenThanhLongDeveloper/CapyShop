@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".user.donhang.UserDonHangActivity">
+
+    <!-- 1. Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tb_don_hang"
+        android:background="@color/white"
+        app:navigationIconTint = "@color/black"
+        app:navigationIcon="@drawable/ic_quay_lai"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="@android:color/transparent"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+
+        <TextView
+            android:id="@+id/tv_toolbar_trang_thai_don_hang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thông tin đơn hàng"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tl_don_hang"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabMode="scrollable"
+        app:tabIndicatorColor="@color/Nude_pink"
+        app:tabSelectedTextColor="@color/Nude_pink"
+        app:tabTextColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/tb_don_hang">
+        <com.google.android.material.tabs.TabItem
+            android:text="chờ xác nhận"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+        <com.google.android.material.tabs.TabItem
+            android:text="chờ lấy hàng"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+        <com.google.android.material.tabs.TabItem
+            android:text="đang giao hàng"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+        <com.google.android.material.tabs.TabItem
+            android:text="đã giao hàng"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+        <com.google.android.material.tabs.TabItem
+            android:text="đã huỷ"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+    </com.google.android.material.tabs.TabLayout>
+
+    <!-- 2. RecyclerView (Danh sách Đơn hàng) -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_don_hang"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/tl_don_hang"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_thong_bao_gio_hang"
+        android:text="Bạn chưa có đơn hàng nào"
+        app:layout_constraintTop_toTopOf="@+id/rv_don_hang"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textColor="@color/Nude_pink"
+        android:textStyle="italic"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

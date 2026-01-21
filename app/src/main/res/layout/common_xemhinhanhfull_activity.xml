@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".common.activity.XemHinhAnhFullActivity">
+
+    <FrameLayout
+        android:id="@+id/root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/black">
+
+        <!-- PhotoView hiển thị ảnh -->
+        <com.github.chrisbanes.photoview.PhotoView
+            android:id="@+id/pv_xem_hinh_anh_full"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter" />
+
+        <!-- Nút đóng -->
+        <ImageView
+            android:id="@+id/iv_xem_hinh_anh_full"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="15dp"
+            android:src="@drawable/ic_quay_lai"
+            android:tint="@android:color/white"
+            android:layout_gravity="top|start" />
+
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

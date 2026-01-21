@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    tools:context=".user.dangki.UserDangKiActivity">
+
+  <!-- Tiêu đề trang -->
+  <TextView
+      android:id="@+id/tv_dang_ki"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="48dp"
+      android:text="ĐĂNG KÝ TÀI KHOẢN"
+      android:textColor="@color/black"
+      android:textSize="28sp"
+      android:textStyle="bold"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <TextView
+      android:id="@+id/tv_sub_title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      android:text="Tạo tài khoản mới để trải nghiệm dịch vụ"
+      android:textColor="#757575"
+      android:textSize="14sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/tv_dang_ki" />
+
+  <!-- CardView chứa Form Đăng ký -->
+  <androidx.cardview.widget.CardView
+      android:id="@+id/cv_register_form"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:backgroundTint="@color/white"
+      android:layout_marginStart="24dp"
+      android:layout_marginTop="32dp"
+      android:layout_marginEnd="24dp"
+      app:cardCornerRadius="16dp"
+      app:cardElevation="8dp"
+      app:layout_constraintTop_toBottomOf="@+id/tv_sub_title">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp">
+
+      <!-- Email -->
+      <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/line1"
+          style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textColorHint="@color/black"
+          app:boxCornerRadiusBottomEnd="24dp"
+          app:boxCornerRadiusBottomStart="24dp"
+          app:boxCornerRadiusTopEnd="24dp"
+          app:boxCornerRadiusTopStart="24dp"
+          app:boxStrokeColor="@color/Nude_pink"
+          app:hintTextColor="@color/Nude_pink"
+          app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_email_dang_ki"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_email"
+            android:drawablePadding="12dp"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:minHeight="48dp"
+            android:textColor="@color/black" />
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <!-- Số điện thoại -->
+      <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/line2"
+          style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="12dp"
+          android:textColorHint="@color/black"
+          app:boxCornerRadiusBottomEnd="24dp"
+          app:boxCornerRadiusBottomStart="24dp"
+          app:boxCornerRadiusTopEnd="24dp"
+          app:boxCornerRadiusTopStart="24dp"
+          app:boxStrokeColor="@color/Nude_pink"
+          app:hintTextColor="@color/Nude_pink"
+          app:layout_constraintTop_toBottomOf="@+id/line1">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_so_dien_thoai_dang_ki"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_so_dien_thoai"
+            android:drawablePadding="12dp"
+            android:hint="Số điện thoại"
+            android:inputType="number"
+            android:minHeight="48dp"
+            android:textColor="@color/black" />
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <!-- Tên người dùng -->
+      <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/line3"
+          style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="12dp"
+          android:textColorHint="@color/black"
+          app:boxCornerRadiusBottomEnd="24dp"
+          app:boxCornerRadiusBottomStart="24dp"
+          app:boxCornerRadiusTopEnd="24dp"
+          app:boxCornerRadiusTopStart="24dp"
+          app:boxStrokeColor="@color/Nude_pink"
+          app:hintTextColor="@color/Nude_pink"
+          app:layout_constraintTop_toBottomOf="@+id/line2">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_ten_nguoi_dung_dang_ki"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_ten_nguoi_dung"
+            android:drawablePadding="12dp"
+            android:hint="Tên người dùng"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:textColor="@color/black" />
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <!-- Mật khẩu -->
+      <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/line4"
+          style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="12dp"
+          android:textColorHint="@color/black"
+          app:boxCornerRadiusBottomEnd="24dp"
+          app:boxCornerRadiusBottomStart="24dp"
+          app:boxCornerRadiusTopEnd="24dp"
+          app:boxCornerRadiusTopStart="24dp"
+          app:boxStrokeColor="@color/Nude_pink"
+          app:hintTextColor="@color/Nude_pink"
+          app:layout_constraintTop_toBottomOf="@+id/line3"
+          app:passwordToggleEnabled="true"
+          app:passwordToggleTint="@color/black">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_mat_khau_dang_ki"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_mat_khau"
+            android:drawablePadding="12dp"
+            android:hint="Mật khẩu"
+            android:inputType="textPassword"
+            android:minHeight="48dp"
+            android:textColor="@color/black" />
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <!-- Nhập lại Mật khẩu -->
+      <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/line5"
+          style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="12dp"
+          android:textColorHint="@color/black"
+          app:boxCornerRadiusBottomEnd="24dp"
+          app:boxCornerRadiusBottomStart="24dp"
+          app:boxCornerRadiusTopEnd="24dp"
+          app:boxCornerRadiusTopStart="24dp"
+          app:boxStrokeColor="@color/Nude_pink"
+          app:hintTextColor="@color/Nude_pink"
+          app:layout_constraintTop_toBottomOf="@+id/line4"
+          app:passwordToggleEnabled="true"
+          app:passwordToggleTint="@color/black">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_nhap_lai_mat_khau_dang_ki"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_mat_khau"
+            android:drawablePadding="12dp"
+            android:hint="Nhập lại mật khẩu"
+            android:inputType="textPassword"
+            android:minHeight="48dp"
+            android:textColor="@color/black" />
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <!-- Nút Đăng ký -->
+      <androidx.appcompat.widget.AppCompatButton
+          android:id="@+id/bt_dang_ki"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="24dp"
+          android:background="@drawable/button_backgroud"
+          android:paddingVertical="14dp"
+          android:text="ĐĂNG KÝ"
+          android:textColor="@color/white"
+          android:textSize="16sp"
+          android:textStyle="bold"
+          app:layout_constraintTop_toBottomOf="@+id/line5" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+  </androidx.cardview.widget.CardView>
+
+  <!-- Khu vực Đã có tài khoản -->
+  <LinearLayout
+      android:id="@+id/ll_dang_ky"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="20dp"
+      android:gravity="center"
+      android:orientation="horizontal"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/cv_register_form">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bạn đã có tài khoản?"
+        android:textColor="@color/black"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/tv_dang_nhap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Đăng nhập"
+        android:textColor="@color/Nude_pink"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+  </LinearLayout>
+
+  <ProgressBar
+      android:id="@+id/pb_dang_ki"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

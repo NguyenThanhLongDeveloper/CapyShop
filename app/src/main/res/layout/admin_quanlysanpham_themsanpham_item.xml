@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:backgroundTint="@color/white"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/tv_admin_item_them_san_pham_thuoc_tinh_ten"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tên thuộc tính"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/black"
+        app:boxCornerRadiusBottomEnd="24dp"
+        app:boxCornerRadiusBottomStart="24dp"
+        app:boxCornerRadiusTopEnd="24dp"
+        app:boxCornerRadiusTopStart="24dp"
+        app:boxStrokeColor="@color/Nude_pink"
+        app:hintTextColor="@color/Nude_pink"
+        android:layout_marginTop="4dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_admin_item_them_san_pham_thuoc_tinh_gia_tri"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nhập giá trị (ví dụ: Đỏ, Xanh)"
+            android:inputType="text"
+            android:textColorHint="@color/black"
+            android:textColor="@color/black" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+</LinearLayout>

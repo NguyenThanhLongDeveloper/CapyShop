@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!--
+ cho phép truy
+    cập internet
+    -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.CapyShop"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31">
+        <activity
+            android:name=".admin.sanpham.AdminQuanLySanPhamActivity"
+            android:exported="false" />
+        <activity
+            android:name=".admin.sanpham.AdminThemSanPhamActivity"
+            android:exported="false" />
+        <activity
+            android:name=".admin.danhmuc.AdminQuanLyDanhMucActivity"
+            android:exported="false" />
+        <activity
+            android:name=".admin.quangcao.AdminQuanLyQuangCaoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".admin.donvivanchuyen.AdminQuanLyDonViVanChuyenActivity"
+            android:exported="false" />
+        <activity
+            android:name=".admin.nguoidung.AdminQuanLyNguoiDungActivity"
+            android:exported="false" />
+        <activity
+            android:name=".admin.phuongthucthanhtoan.AdminQuanLyPhuongThucThanhToanActivity"
+            android:exported="false" />
+        <activity
+            android:name=".admin.chitietdonhang.AdminChiTietDonHangActivity"
+            android:exported="false" />
+        <activity
+            android:name=".admin.donhang.AdminQuanLyDonHangActivity"
+            android:exported="false" />
+        <activity
+            android:name=".common.activity.SplashActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!--         Admin Activities -->
+        <activity
+            android:name=".admin.main.AdminMainActivity"
+            android:exported="false"
+            tools:ignore="MissingClass" />
+        <activity
+            android:name=".admin.chitietsanpham.AdminChiTietSanPhamActivity"
+            android:exported="false" />
+        <activity
+            android:name=".common.activity.XemHinhAnhFullActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Design.NoActionBar" />
+        <activity
+            android:name=".user.tìmkiemsanpham.UserTimKiemSanPhamActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.donhang.UserDonHangActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.dathang.UserDatHangActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.quenmatkhau.UserQuenMatKhauActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.dangnhap.UserDangNhapActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.dangki.UserDangKiActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.giohang.UserGioHangActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.chitietsanpham.UserChiTietSanPhamActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.thongtincanhan.UserThongTinCaNhanActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.lienhe.UserLienHeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.sanpham.UserSanPhamActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.main.UserMainActivity"
+            android:exported="false"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.CapyShop" />
+    </application>
+
+</manifest>

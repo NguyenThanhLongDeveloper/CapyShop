@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:backgroundTint="@color/white"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tv_admin_item_don_vi_van_chuyen_ten"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Giao Hàng Nhanh"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/tv_admin_item_don_vi_van_chuyen_trang_thai_nhan"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_admin_item_don_vi_van_chuyen_trang_thai_nhan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:text="HOẠT ĐỘNG"
+            android:textColor="@color/Nude_pink"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@id/tv_admin_item_don_vi_van_chuyen_ten"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_admin_item_don_vi_van_chuyen_bieu_tuong_gia"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_tien"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_admin_item_don_vi_van_chuyen_ten"
+            app:tint="#616161" />
+
+        <TextView
+            android:id="@+id/tv_admin_item_don_vi_van_chuyen_gia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Giá cước: 25.000đ"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_admin_item_don_vi_van_chuyen_bieu_tuong_gia"
+            app:layout_constraintStart_toEndOf="@id/iv_admin_item_don_vi_van_chuyen_bieu_tuong_gia"
+            app:layout_constraintTop_toTopOf="@id/iv_admin_item_don_vi_van_chuyen_bieu_tuong_gia" />
+
+        <ImageView
+            android:id="@+id/iv_admin_item_don_vi_van_chuyen_bieu_tuong_thoi_gian"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_dong_ho"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_admin_item_don_vi_van_chuyen_bieu_tuong_gia"
+            app:tint="#616161" />
+
+        <TextView
+            android:id="@+id/tv_admin_item_don_vi_van_chuyen_thoi_gian_cap_nhat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Cập nhật 2 giờ trước"
+            android:textColor="@color/Gray"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_admin_item_don_vi_van_chuyen_bieu_tuong_thoi_gian"
+            app:layout_constraintStart_toEndOf="@id/iv_admin_item_don_vi_van_chuyen_bieu_tuong_thoi_gian"
+            app:layout_constraintTop_toTopOf="@id/iv_admin_item_don_vi_van_chuyen_bieu_tuong_thoi_gian" />
+
+        <ImageView
+            android:id="@+id/iv_admin_item_don_vi_van_chuyen_sua"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="8dp"
+            android:padding="8dp"
+            android:src="@drawable/ic_sua"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/iv_admin_item_don_vi_van_chuyen_xoa"
+            app:tint="#1F5161" />
+
+        <ImageView
+            android:id="@+id/iv_admin_item_don_vi_van_chuyen_xoa"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:padding="8dp"
+            android:src="@drawable/ic_xoa"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,38 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="12dp"
+    android:gravity="center_vertical">
+
+    <RadioButton
+        android:id="@+id/rb_item_don_vi_van_chuyen_dat_hang"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:focusable="false"/>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="8dp">
+
+        <TextView
+            android:id="@+id/tv_item_ten_don_vi_van_chuyen_dat_hang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Giao hàng nhanh"
+            android:textColor="@color/black"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/tv_item_gia_don_vi_van_chuyen_dat_hang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="25.000 đ"
+            android:textSize="13sp"
+            android:textColor="@color/red"/>
+    </LinearLayout>
+</LinearLayout>
