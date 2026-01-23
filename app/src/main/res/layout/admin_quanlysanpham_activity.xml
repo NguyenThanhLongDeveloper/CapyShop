@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/LightBackgroud">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -45,12 +45,19 @@
             android:textSize="12sp"
             android:textStyle="bold" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_admin_quan_ly_san_pham"
+        <LinearLayout
+            android:padding="16dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:paddingBottom="80dp" />
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_admin_quan_ly_san_pham"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingBottom="80dp" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -62,6 +69,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:background="@drawable/button_backgroud" />
+        android:background="@drawable/button_on_backgroud" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

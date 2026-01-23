@@ -28,8 +28,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabMode="fixed"
-        app:tabIndicatorColor="@color/Nude_pink"
-        app:tabSelectedTextColor="@color/Nude_pink"
+        app:tabIndicatorColor="@color/ButtonOnBackgroud"
+        app:tabSelectedTextColor="@color/ButtonOnBackgroud"
         app:tabTextColor="@color/black">
         <com.google.android.material.tabs.TabItem
             android:text="Tỉnh/Thành"

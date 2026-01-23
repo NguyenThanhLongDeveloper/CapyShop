@@ -3,15 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="16dp"
-    android:layout_marginTop="8dp"
-    android:layout_marginBottom="8dp"
+    android:layout_marginBottom="10dp"
     android:backgroundTint="@color/white"
-    app:cardCornerRadius="14dp"
-    app:cardElevation="0.5dp"
-    app:cardMaxElevation="0dp"
-    app:cardPreventCornerOverlap="false"
-    app:cardUseCompatPadding="false">
+    app:cardCornerRadius="12dp"
+    app:cardElevation="0dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -41,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="COD - Tiền mặt"
-                android:textColor="#94A3B8"
+                android:textColor="@color/black"
                 android:textSize="12sp" />
 
         </LinearLayout>
@@ -50,8 +45,8 @@
             android:id="@+id/sw_admin_item_phuong_thuc_thanh_toan_trang_thai"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:thumbTint="@color/Nude_pink"
-            app:trackTint="@color/Nude_pink" />
+            app:thumbTint="@color/ButtonOnBackgroud"
+            app:trackTint="@color/ButtonOffBackgroud" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

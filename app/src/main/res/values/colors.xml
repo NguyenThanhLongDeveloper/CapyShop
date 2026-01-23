@@ -8,10 +8,15 @@
 
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="Nude_pink">#CC9999</color>
     <color name="red">#D32F2F</color>
-    <color name="Charcoal">#33333333</color>
     <color name="Gray">#33000000</color>
+
+    <color name="DarkBackgroud">#1E1E3F</color>
+    <color name="LightBackgroud">#F2F2F2</color>
+    <color name="ButtonOnBackgroud">#8B5CF6</color>
+    <color name="ButtonOffBackgroud">#E9E9EA</color>
+
+
 
 
 </resources>

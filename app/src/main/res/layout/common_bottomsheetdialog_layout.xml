@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Bạn có chắc chắn muốn thoát tài khoản không?"
-        android:textColor="#757575"
+        android:textColor="@color/black"
         android:textSize="14sp" />
 
     <LinearLayout
@@ -42,10 +42,10 @@
             android:id="@+id/btn_xac_nhan_bottom_sheet_dialog"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:background="@drawable/button_backgroud"
+            android:background="@drawable/button_on_backgroud"
             android:text="Xác nhận"
             android:textAllCaps="false"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -54,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginTop="12dp"
-            android:background="@drawable/chua_chon_backgroud"
+            android:background="@drawable/button_off_backgroud"
             android:text="Hủy"
             android:textAllCaps="false"
             android:textColor="@color/black"

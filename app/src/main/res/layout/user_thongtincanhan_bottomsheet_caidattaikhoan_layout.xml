@@ -40,8 +40,8 @@
             app:boxCornerRadiusBottomStart="24dp"
             app:boxCornerRadiusTopEnd="24dp"
             app:boxCornerRadiusTopStart="24dp"
-            app:boxStrokeColor="@color/Nude_pink"
-            app:hintTextColor="@color/Nude_pink"
+            app:boxStrokeColor="@color/ButtonOnBackgroud"
+            app:hintTextColor="@color/ButtonOnBackgroud"
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -66,8 +66,8 @@
             app:boxCornerRadiusBottomStart="24dp"
             app:boxCornerRadiusTopEnd="24dp"
             app:boxCornerRadiusTopStart="24dp"
-            app:boxStrokeColor="@color/Nude_pink"
-            app:hintTextColor="@color/Nude_pink"
+            app:boxStrokeColor="@color/ButtonOnBackgroud"
+            app:hintTextColor="@color/ButtonOnBackgroud"
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -111,7 +111,7 @@
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/button_backgroud"
+            android:background="@drawable/button_on_backgroud"
             android:text="Lưu"
             android:textColor="@color/white" />
     </LinearLayout>

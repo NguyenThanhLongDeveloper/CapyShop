@@ -3,14 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="2dp"
-    android:layout_marginVertical="1dp"
+    android:layout_marginBottom="10dp"
     android:backgroundTint="@color/white"
-    app:cardCornerRadius="0dp"
-    app:cardElevation="0dp"
-    app:cardMaxElevation="0dp"
-    app:cardPreventCornerOverlap="false"
-    app:cardUseCompatPadding="false">
+    app:cardCornerRadius="12dp"
+    app:cardElevation="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -71,7 +67,7 @@
                     android:paddingHorizontal="8dp"
                     android:paddingVertical="2dp"
                     android:text="HOẠT ĐỘNG"
-                    android:textColor="@color/Nude_pink"
+                    android:textColor="@color/red"
                     android:textSize="9sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -82,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="active@email.com"
-                android:textColor="#64748B"
+                android:textColor="@color/black"
                 android:textSize="13sp" />
 
             <TextView
@@ -91,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="SĐT: 0901234567"
-                android:textColor="#94A3B8"
+                android:textColor="@color/black"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -102,8 +98,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:thumbTint="@color/Nude_pink"
-            app:trackTint="@color/Nude_pink" />
+            app:thumbTint="@color/ButtonOnBackgroud"
+            app:trackTint="@color/ButtonOffBackgroud" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

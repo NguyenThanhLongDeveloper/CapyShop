@@ -6,7 +6,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/LightBackgroud"
     tools:context=".admin.donvivanchuyen.AdminQuanLyDonViVanChuyenActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_marginTop="16dp"
-        android:background="@android:color/transparent"
+        android:background="@color/white"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/ic_quay_lai"
         app:navigationIconTint="@color/black">
@@ -29,28 +29,33 @@
             android:textStyle="bold" />
     </androidx.appcompat.widget.Toolbar>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_admin_quan_ly_don_vi_van_chuyen"
+    <LinearLayout
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tb_admin_quan_ly_don_vi_van_chuyen"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:paddingHorizontal="16dp"
-        app:layout_constraintBottom_toTopOf="@id/bt_admin_quan_ly_don_vi_van_chuyen_them"
-        app:layout_constraintTop_toBottomOf="@id/tb_admin_quan_ly_don_vi_van_chuyen" />
+        android:padding="16dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_admin_quan_ly_don_vi_van_chuyen"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+/>
+
+    </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/bt_admin_quan_ly_don_vi_van_chuyen_them"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:background="@drawable/button_backgroud"
+        android:background="@drawable/button_on_backgroud"
         android:text="Thêm đơn vị mới"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

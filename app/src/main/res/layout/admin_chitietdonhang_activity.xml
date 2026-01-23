@@ -6,7 +6,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/LightBackgroud"
     android:fillViewport="true">
 
     <androidx.core.widget.NestedScrollView
@@ -18,6 +18,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:orientation="vertical">
 
             <!-- Order Info Card -->
@@ -27,7 +28,7 @@
                 android:layout_marginTop="16dp"
                 app:cardCornerRadius="12dp"
                 android:backgroundTint="@color/white"
-                app:cardElevation="2dp">
+                app:cardElevation="0dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -57,7 +58,7 @@
                             android:paddingHorizontal="12dp"
                             android:paddingVertical="4dp"
                             android:text="CHỜ XÁC NHẬN"
-                            android:textColor="@color/Nude_pink"
+                            android:textColor="@color/red"
                             android:textSize="12sp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -82,7 +83,7 @@
                 android:layout_marginTop="16dp"
                 app:cardCornerRadius="12dp"
                 android:backgroundTint="@color/white"
-                app:cardElevation="2dp">
+                app:cardElevation="0dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -173,7 +174,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Gọi"
-                            android:textColor="@color/Nude_pink"
+                            android:textColor="@color/red"
                             android:textSize="12sp"
                             android:paddingHorizontal="10dp"
                             android:paddingVertical="4dp" />
@@ -222,7 +223,7 @@
                 android:layout_marginTop="16dp"
                 app:cardCornerRadius="12dp"
                 android:backgroundTint="@color/white"
-                app:cardElevation="2dp">
+                app:cardElevation="0dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -265,7 +266,7 @@
                     android:layout_marginEnd="8dp"
                     app:cardCornerRadius="12dp"
                     android:backgroundTint="@color/white"
-                    app:cardElevation="2dp">
+                    app:cardElevation="0dp">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -302,7 +303,7 @@
                     android:layout_marginStart="8dp"
                     app:cardCornerRadius="12dp"
                     android:backgroundTint="@color/white"
-                    app:cardElevation="2dp">
+                    app:cardElevation="0dp">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -361,7 +362,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Tạm tính (2 món)"
-                            android:textColor="@color/Gray" />
+                            android:textColor="@color/black" />
                         <TextView
                             android:id="@+id/tv_admin_chi_tiet_tam_tinh"
                             android:layout_width="wrap_content"
@@ -381,7 +382,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Phí vận chuyển"
-                            android:textColor="@color/Gray" />
+                            android:textColor="@color/black" />
                         <TextView
                             android:id="@+id/tv_admin_chi_tiet_phi_van_chuyen"
                             android:layout_width="wrap_content"
@@ -416,7 +417,7 @@
                             android:text="2,730,000 đ"
                             android:textStyle="bold"
                             android:textSize="18sp"
-                            android:textColor="@color/Nude_pink" />
+                            android:textColor="@color/red" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -431,9 +432,9 @@
         android:id="@+id/tb_admin_chi_tiet_don_hang"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:layout_marginTop="16dp"
-        android:background="@android:color/transparent"
+        android:background="@color/white"
         app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
         app:navigationIcon="@drawable/ic_quay_lai"
         app:navigationIconTint="@color/black"
         app:titleTextColor="@android:color/transparent">

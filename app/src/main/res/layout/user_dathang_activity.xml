@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:background="@color/white"
+    android:background="@color/LightBackgroud"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".user.dathang.UserDatHangActivity">
@@ -25,6 +25,7 @@
             android:layout_height="wrap_content"
             android:text="Đặt hàng"
             android:textColor="@color/black"
+            android:layout_gravity="center"
             android:textSize="18sp"
             android:textStyle="bold"/>
 
@@ -44,18 +45,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingBottom="16dp">
+            android:padding="16dp">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_thong_tin_ca_nhan_dat_hang"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/white"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 app:cardCornerRadius="12dp"
-                app:cardElevation="4dp">
+                app:cardElevation="0dp">
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -85,7 +83,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0123456789"
-                            android:textColor="@color/Gray"
+                            android:textColor="@color/black"
                             android:textSize="14sp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -115,12 +113,10 @@
                 android:id="@+id/cv_dat_hang"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
                 android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/white"
                 app:cardCornerRadius="12dp"
-                app:cardElevation="4dp">
+                app:cardElevation="0dp">
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -161,7 +157,6 @@
                         android:layout_height="1dp"/>
 
                     <LinearLayout
-                        android:layout_margin="5dp"
                         android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -194,10 +189,8 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/white"
                 android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 app:cardCornerRadius="12dp"
-                app:cardElevation="4dp">
+                app:cardElevation="0dp">
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -234,10 +227,8 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/white"
                 android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 app:cardCornerRadius="12dp"
-                app:cardElevation="4dp">
+                app:cardElevation="0dp">
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -279,10 +270,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="16dp"
         android:paddingVertical="12dp"
-        android:background="@drawable/button_backgroud"
-        android:backgroundTint="@color/Nude_pink"
+        android:background="@drawable/button_on_backgroud"
+        android:backgroundTint="@color/ButtonOnBackgroud"
         android:text="ĐẶT HÀNG"
         android:textColor="@color/white"
         android:textSize="16sp"

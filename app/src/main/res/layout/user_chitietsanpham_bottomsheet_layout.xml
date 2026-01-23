@@ -100,19 +100,24 @@
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:padding="8dp"
+                    android:background= "@drawable/icon_background"
                     android:src="@drawable/ic_giam_so_luong" />
                 <TextView
                     android:id="@+id/tv_bottom_sheet_so_luong_chi_tiet_san_pham"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:gravity="center"
                     android:textColor="@color/black"
-                    android:layout_marginHorizontal="12dp"
-                    android:text="1" />
+                    android:text="1"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:textColorHint="@color/black"/>
                 <ImageView
                     android:id="@+id/iv_bottom_sheet_tang_chi_tiet_san_pham"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:padding="8dp"
+                    android:background= "@drawable/icon_background"
                     android:src="@drawable/ic_tang_so_luong" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -123,7 +128,7 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_margin="20dp"
-        android:background="@drawable/button_backgroud"
+        android:background="@drawable/button_on_backgroud"
         android:text="Thêm vào giỏ hàng"
         android:textColor="@android:color/white"
         app:layout_constraintTop_toBottomOf="@id/cv_so_luong_sheet" />

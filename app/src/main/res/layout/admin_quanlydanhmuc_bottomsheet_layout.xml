@@ -65,18 +65,28 @@
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/et_admin_danh_muc_bieu_mau_ten"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/chua_chon_backgroud"
-                android:hint="Nhập tên danh mục..."
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/black"
+                app:boxCornerRadiusBottomEnd="24dp"
+                app:boxCornerRadiusBottomStart="24dp"
+                app:boxCornerRadiusTopEnd="24dp"
+                app:boxCornerRadiusTopStart="24dp"
+                app:boxStrokeColor="@color/ButtonOnBackgroud"
+                app:hintTextColor="@color/ButtonOnBackgroud"
+                android:layout_marginTop="4dp">
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_admin_danh_muc_bieu_mau_ten"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nhập tên danh mục..."
+                    android:inputType="text"
+                    android:textColorHint="@color/black"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Image Selection -->
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -98,12 +108,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/chua_chon_backgroud"
                     android:backgroundTint="@color/white"
                     android:paddingHorizontal="8dp"
                     android:paddingVertical="4dp"
                     android:text="Bắt buộc"
-                    android:textColor="@color/Nude_pink"
+                    android:textColor="@color/red"
                     android:textSize="11sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@id/tv_label_anh"
@@ -135,8 +144,7 @@
                             android:background="@drawable/image_backgroud"
                             android:backgroundTint="#F8F8F8"
                             android:padding="16dp"
-                            android:src="@drawable/ic_hinh_anh"
-                            app:tint="#5E4EAC" />
+                            android:src="@drawable/ic_hinh_anh"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -160,7 +168,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="36dp"
                             android:layout_marginTop="16dp"
-                            android:background="@drawable/button_backgroud"
+                            android:background="@drawable/button_on_backgroud"
                             android:paddingHorizontal="24dp"
                             android:text="Chọn tệp"
                             android:textAllCaps="false"
@@ -195,16 +203,29 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="8dp">
 
-                <EditText
-                    android:id="@+id/et_admin_danh_muc_bieu_mau_them_thuong_hieu"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
-                    android:hint="Nhập tên thương hiệu"
-                    android:background="@drawable/chua_chon_backgroud"
-                    android:paddingStart="12dp"
-                    android:paddingEnd="12dp"
-                    android:textSize="14sp" />
+                    android:textColorHint="@color/black"
+                    app:boxCornerRadiusBottomEnd="24dp"
+                    app:boxCornerRadiusBottomStart="24dp"
+                    app:boxCornerRadiusTopEnd="24dp"
+                    app:boxCornerRadiusTopStart="24dp"
+                    app:boxStrokeColor="@color/ButtonOnBackgroud"
+                    app:hintTextColor="@color/ButtonOnBackgroud"
+                    android:layout_marginTop="4dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_admin_danh_muc_bieu_mau_them_thuong_hieu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Nhập tên thương hiệu"
+                        android:inputType="text"
+                        android:textColorHint="@color/black"
+                        android:textColor="@color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/bt_admin_danh_muc_bieu_mau_them_thuong_hieu"
@@ -213,7 +234,7 @@
                     android:text="Thêm"
                     android:layout_marginStart="8dp"
                     android:textAllCaps="false"
-                    android:background="@drawable/button_backgroud"
+                    android:background="@drawable/button_on_backgroud"
                     android:textColor="@color/white" />
             </LinearLayout>
 
@@ -239,16 +260,29 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="8dp">
 
-                <EditText
-                    android:id="@+id/et_admin_danh_muc_bieu_mau_them_thuoc_tinh"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
-                    android:hint="Nhập tên thuộc tính"
-                    android:background="@drawable/chua_chon_backgroud"
-                    android:paddingStart="12dp"
-                    android:paddingEnd="12dp"
-                    android:textSize="14sp" />
+                    android:textColorHint="@color/black"
+                    app:boxCornerRadiusBottomEnd="24dp"
+                    app:boxCornerRadiusBottomStart="24dp"
+                    app:boxCornerRadiusTopEnd="24dp"
+                    app:boxCornerRadiusTopStart="24dp"
+                    app:boxStrokeColor="@color/ButtonOnBackgroud"
+                    app:hintTextColor="@color/ButtonOnBackgroud"
+                    android:layout_marginTop="4dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_admin_danh_muc_bieu_mau_them_thuoc_tinh"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Nhập tên thuộc tính"
+                        android:inputType="text"
+                        android:textColorHint="@color/black"
+                        android:textColor="@color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/bt_admin_danh_muc_bieu_mau_them_thuoc_tinh"
@@ -257,7 +291,7 @@
                     android:text="Thêm"
                     android:layout_marginStart="8dp"
                     android:textAllCaps="false"
-                    android:background="@drawable/button_backgroud"
+                    android:background="@drawable/button_on_backgroud"
                     android:textColor="@color/white" />
             </LinearLayout>
 
@@ -273,6 +307,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:layout_marginBottom="60dp"
+                android:padding="5dp"
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.AppCompatButton
@@ -281,7 +316,7 @@
                     android:layout_height="52dp"
                     android:layout_marginEnd="12dp"
                     android:layout_weight="1"
-                    android:background="@drawable/chua_chon_backgroud"
+                    android:background="@drawable/button_off_backgroud"
                     android:text="Hủy"
                     android:textAllCaps="false"
                     android:textColor="@color/black"
@@ -293,7 +328,7 @@
                     android:layout_width="0dp"
                     android:layout_height="52dp"
                     android:layout_weight="2"
-                    android:background="@drawable/button_backgroud"
+                    android:background="@drawable/button_on_backgroud"
                     android:drawablePadding="8dp"
                     android:paddingHorizontal="16dp"
                     android:text="Lưu danh mục"

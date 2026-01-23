@@ -6,7 +6,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5">
+    android:background="@color/LightBackgroud">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,13 +36,13 @@
 
             <ImageView
                 android:id="@+id/iv_admin_quan_ly_san_pham_bieu_mau_luu_thanh_cong_cu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginEnd="20dp"
                 android:layout_gravity="end"
-                android:padding="16dp"
+                android:padding="8dp"
                 android:src="@drawable/ic_xoa"
                 android:visibility="gone" />
-            <!-- Assuming ic_check exists, otherwise use text -->
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -62,7 +62,7 @@
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="12dp"
                     android:backgroundTint="@color/white"
-                    app:cardElevation="2dp">
+                    app:cardElevation="0dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -125,7 +125,7 @@
                     android:layout_marginTop="16dp"
                     app:cardCornerRadius="12dp"
                     android:backgroundTint="@color/white"
-                    app:cardElevation="2dp">
+                    app:cardElevation="0dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -149,8 +149,8 @@
                             app:boxCornerRadiusBottomStart="24dp"
                             app:boxCornerRadiusTopEnd="24dp"
                             app:boxCornerRadiusTopStart="24dp"
-                            app:boxStrokeColor="@color/Nude_pink"
-                            app:hintTextColor="@color/Nude_pink"
+                            app:boxStrokeColor="@color/ButtonOnBackgroud"
+                            app:hintTextColor="@color/ButtonOnBackgroud"
                             android:layout_marginTop="4dp">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -204,7 +204,7 @@
                     android:layout_marginTop="16dp"
                     app:cardCornerRadius="12dp"
                     android:backgroundTint="@color/white"
-                    app:cardElevation="2dp">
+                    app:cardElevation="0dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -243,7 +243,7 @@
                     android:layout_marginTop="16dp"
                     app:cardCornerRadius="12dp"
                     android:backgroundTint="@color/white"
-                    app:cardElevation="2dp">
+                    app:cardElevation="0dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -267,8 +267,8 @@
                             app:boxCornerRadiusBottomStart="24dp"
                             app:boxCornerRadiusTopEnd="24dp"
                             app:boxCornerRadiusTopStart="24dp"
-                            app:boxStrokeColor="@color/Nude_pink"
-                            app:hintTextColor="@color/Nude_pink"
+                            app:boxStrokeColor="@color/ButtonOnBackgroud"
+                            app:hintTextColor="@color/ButtonOnBackgroud"
                             android:layout_marginTop="4dp">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -290,8 +290,8 @@
                             app:boxCornerRadiusBottomStart="24dp"
                             app:boxCornerRadiusTopEnd="24dp"
                             app:boxCornerRadiusTopStart="24dp"
-                            app:boxStrokeColor="@color/Nude_pink"
-                            app:hintTextColor="@color/Nude_pink"
+                            app:boxStrokeColor="@color/ButtonOnBackgroud"
+                            app:hintTextColor="@color/ButtonOnBackgroud"
                             android:layout_marginTop="4dp">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -315,7 +315,7 @@
                     android:layout_marginBottom="80dp"
                     app:cardCornerRadius="12dp"
                     android:backgroundTint="@color/white"
-                    app:cardElevation="2dp">
+                    app:cardElevation="0dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -339,8 +339,8 @@
                             app:boxCornerRadiusBottomStart="24dp"
                             app:boxCornerRadiusTopEnd="24dp"
                             app:boxCornerRadiusTopStart="24dp"
-                            app:boxStrokeColor="@color/Nude_pink"
-                            app:hintTextColor="@color/Nude_pink"
+                            app:boxStrokeColor="@color/ButtonOnBackgroud"
+                            app:hintTextColor="@color/ButtonOnBackgroud"
                             android:layout_marginTop="4dp">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -348,7 +348,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="top"
-                                android:lines="4"
+                                android:lines="1"
                                 android:hint="Nhập mô tả sản phẩm"
                                 android:inputType="text"
                                 android:textColorHint="@color/black"
@@ -376,8 +376,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginEnd="8dp"
-            android:background="@drawable/chua_chon_backgroud"
+            android:background="@drawable/button_off_backgroud"
             android:text="Hủy"
+            android:textColor="@color/black"
             android:textAllCaps="false" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -385,7 +386,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:background="@drawable/button_backgroud"
+            android:background="@drawable/button_on_backgroud"
             android:text="Lưu sản phẩm"
             android:textAllCaps="false"
             android:textColor="@color/white"

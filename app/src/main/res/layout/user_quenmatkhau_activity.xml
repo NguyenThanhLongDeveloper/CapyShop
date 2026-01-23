@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
+    android:background="@color/LightBackgroud"
     tools:context=".user.quenmatkhau.UserQuenMatKhauActivity">
 
     <!-- Tiêu đề trang -->
@@ -47,7 +47,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="24dp"
         app:cardCornerRadius="16dp"
-        app:cardElevation="8dp"
+        app:cardElevation="0dp"
         app:layout_constraintTop_toBottomOf="@+id/tv_instruction">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -65,8 +65,8 @@
                 app:boxCornerRadiusBottomStart="24dp"
                 app:boxCornerRadiusTopEnd="24dp"
                 app:boxCornerRadiusTopStart="24dp"
-                app:boxStrokeColor="@color/Nude_pink"
-                app:hintTextColor="@color/Nude_pink"
+                app:boxStrokeColor="@color/ButtonOnBackgroud"
+                app:hintTextColor="@color/ButtonOnBackgroud"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -86,7 +86,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:background="@drawable/button_backgroud"
+                android:background="@drawable/button_on_backgroud"
                 android:paddingVertical="14dp"
                 android:text="GỬI YÊU CẦU"
                 android:textColor="@color/white"
@@ -121,7 +121,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="Đăng nhập"
-            android:textColor="@color/Nude_pink"
+            android:textColor="@color/ButtonOnBackgroud"
             android:textSize="15sp"
             android:textStyle="bold" />
     </LinearLayout>

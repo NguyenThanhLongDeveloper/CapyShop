@@ -6,7 +6,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/LightBackgroud"
     tools:context=".admin.donhang.AdminQuanLyDonHangActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_marginTop="16dp"
-        android:background="@android:color/transparent"
+        android:background="@color/white"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/ic_quay_lai"
         app:navigationIconTint="@color/black"
@@ -43,8 +43,8 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             app:tabMode="scrollable"
-            app:tabIndicatorColor="@color/Nude_pink"
-            app:tabSelectedTextColor="@color/Nude_pink"
+            app:tabIndicatorColor="@color/ButtonOnBackgroud"
+            app:tabSelectedTextColor="@color/ButtonOnBackgroud"
             app:tabTextColor="@color/black">
 
             <com.google.android.material.tabs.TabItem
@@ -74,14 +74,20 @@
         </com.google.android.material.tabs.TabLayout>
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_admin_quan_ly_don_hang"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+    <LinearLayout
         android:layout_marginTop="8dp"
-        android:paddingBottom="16dp"
+        android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ll_admin_quan_ly_don_hang_thanh_dieu_huong_khung_chua" />
+        app:layout_constraintTop_toBottomOf="@id/ll_admin_quan_ly_don_hang_thanh_dieu_huong_khung_chua"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_admin_quan_ly_don_hang"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/pb_admin_quan_ly_don_hang"

@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:background="@color/white"
+    android:background="@color/LightBackgroud"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".user.donhang.UserDonHangActivity">
@@ -37,8 +37,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabMode="scrollable"
-        app:tabIndicatorColor="@color/Nude_pink"
-        app:tabSelectedTextColor="@color/Nude_pink"
+        android:layout_marginTop="10dp"
+        app:tabIndicatorColor="@color/ButtonOnBackgroud"
+        app:tabSelectedTextColor="@color/ButtonOnBackgroud"
         app:tabTextColor="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/tb_don_hang">
         <com.google.android.material.tabs.TabItem
@@ -64,16 +65,19 @@
     </com.google.android.material.tabs.TabLayout>
 
     <!-- 2. RecyclerView (Danh sách Đơn hàng) -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_don_hang"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/white"
+    <LinearLayout
+        app:layout_constraintTop_toBottomOf="@+id/tl_don_hang"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/tl_don_hang"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:padding="16dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_don_hang"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tv_thong_bao_gio_hang"
@@ -82,7 +86,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:gravity="center"
         android:textSize="18sp"
-        android:textColor="@color/Nude_pink"
+        android:textColor="@color/ButtonOnBackgroud"
         android:textStyle="italic"
         android:layout_width="match_parent"
         android:layout_height="0dp"

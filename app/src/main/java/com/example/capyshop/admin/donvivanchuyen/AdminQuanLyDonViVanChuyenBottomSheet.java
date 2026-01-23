@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,24 +13,24 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 
 import com.example.capyshop.R;
+import com.example.capyshop.common.donvivanchuyen.DonViVanChuyen;
 import com.example.capyshop.common.retrofit.ApiAdmin;
 import com.example.capyshop.common.retrofit.RetrofitClient;
 import com.example.capyshop.common.utils.Utils;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.textfield.TextInputEditText;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-import com.example.capyshop.common.donvivanchuyen.DonViVanChuyen;
-
 public class AdminQuanLyDonViVanChuyenBottomSheet extends BottomSheetDialogFragment {
 
     private OnActionThanhCong listenerThanhCong;
 
-    private EditText etAdminDonViVanChuyenBieuMauTen, etAdminDonViVanChuyenBieuMauGia;
+    private TextInputEditText etAdminDonViVanChuyenBieuMauTen, etAdminDonViVanChuyenBieuMauGia;
     private ApiAdmin apiAdmin;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 

@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,14 +22,15 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.bumptech.glide.Glide;
 import com.example.capyshop.R;
-import com.example.capyshop.common.danhmuc.DanhMucModel;
 import com.example.capyshop.common.danhmuc.DanhMuc;
+import com.example.capyshop.common.danhmuc.DanhMucModel;
 import com.example.capyshop.common.retrofit.ApiAdmin;
 import com.example.capyshop.common.retrofit.RetrofitClient;
 import com.example.capyshop.common.utils.Utils;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.textfield.TextInputEditText;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
@@ -41,13 +41,13 @@ public class AdminQuanLyDanhMucBottomSheet extends BottomSheetDialogFragment {
     private DanhMuc danhMucSua;
     private OnActionThanhCong listenerThanhCong;
 
-    private EditText etAdminDanhMucBieuMauTen;
+    private TextInputEditText etAdminDanhMucBieuMauTen;
     private ImageView ivAdminDanhMucBieuMauAnhXemTruoc;
     private LinearLayout llAdminDanhMucBieuMauAnhGiuCho;
     private Uri uriAnhChon;
 
     // New Fields
-    private EditText etAdminDanhMucBieuMauThemThuongHieu, etAdminDanhMucBieuMauThemThuocTinh;
+    private TextInputEditText etAdminDanhMucBieuMauThemThuongHieu, etAdminDanhMucBieuMauThemThuocTinh;
     private AppCompatButton btAdminDanhMucBieuMauThemThuongHieu, btAdminDanhMucBieuMauThemThuocTinh;
     private com.google.android.material.chip.ChipGroup cgAdminDanhMucBieuMauThuongHieu, cgAdminDanhMucBieuMauThuocTinh;
 

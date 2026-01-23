@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/LightBackgroud"
     tools:context=".user.sanpham.UserSanPhamActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -23,6 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sản phẩm"
+            android:layout_gravity="center"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -48,14 +49,19 @@
         </FrameLayout>
     </androidx.appcompat.widget.Toolbar>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_san_pham"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
+    <LinearLayout
+        android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tb_san_pham" />
+        app:layout_constraintTop_toBottomOf="@+id/tb_san_pham"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_san_pham"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/pb_san_pham"

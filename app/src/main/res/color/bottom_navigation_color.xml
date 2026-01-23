@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- Màu khi item được chọn (Màu hồng, bạn có thể thay đổi mã màu này) -->
-    <item android:color="@color/Nude_pink" android:state_checked="true"/>
+    <item android:color="@color/ButtonOnBackgroud" android:state_checked="true"/>
     <!-- Màu mặc định khi item không được chọn (Màu đen) -->
     <item android:color="@color/black"/>
 </selector>

@@ -5,23 +5,23 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capyshop.R;
+import com.example.capyshop.common.activity.BaseActivity;
+import com.example.capyshop.common.chitietdonhang.ChiTietDonHang;
+import com.example.capyshop.common.donhang.DonHang;
 import com.example.capyshop.common.retrofit.ApiAdmin;
 import com.example.capyshop.common.retrofit.RetrofitClient;
 import com.example.capyshop.common.utils.Utils;
 
-import com.example.capyshop.common.chitietdonhang.ChiTietDonHang;
-import com.example.capyshop.common.donhang.DonHang;
 import java.text.DecimalFormat;
 import java.util.List;
 
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
-public class AdminChiTietDonHangActivity extends AppCompatActivity {
+public class AdminChiTietDonHangActivity extends BaseActivity {
 
     private androidx.appcompat.widget.Toolbar tbChiTietDonHang;
     private TextView tvChiTietMaDonHang, tvChiTietTrangThai, tvChiTietNgayDat, tvChiTietTenKhachHang, tvChiTietSoDienThoai, btChiTietGoi, tvChiTietDiaChi;

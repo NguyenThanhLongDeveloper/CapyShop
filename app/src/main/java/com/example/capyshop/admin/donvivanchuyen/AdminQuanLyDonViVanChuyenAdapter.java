@@ -54,7 +54,7 @@ public class AdminQuanLyDonViVanChuyenAdapter
 
         if ("HOAT_DONG".equals(donVi.getTrangThai())) {
             holder.tvAdminItemDonViVanChuyenTrangThaiNhan.setText("HOẠT ĐỘNG");
-            holder.tvAdminItemDonViVanChuyenTrangThaiNhan.setTextColor(context.getResources().getColor(R.color.Nude_pink)); // Adjusted to match design
+            holder.tvAdminItemDonViVanChuyenTrangThaiNhan.setTextColor(context.getResources().getColor(R.color.ButtonOnBackgroud)); // Adjusted to match design
         } else {
             holder.tvAdminItemDonViVanChuyenTrangThaiNhan.setText("TẠM DỪNG");
             holder.tvAdminItemDonViVanChuyenTrangThaiNhan.setTextColor(context.getResources().getColor(R.color.black));

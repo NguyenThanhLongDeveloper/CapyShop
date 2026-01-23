@@ -2,10 +2,10 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:elevation="4dp"
-    app:cardCornerRadius="8dp"
-    android:layout_marginBottom="8dp"
-    android:backgroundTint="@color/white"
+    android:layout_marginBottom="10dp"
+    app:cardCornerRadius="12dp"
+    android:backgroundTint="@color/LightBackgroud"
+    app:cardElevation="0dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -73,7 +73,7 @@
                 <TextView
                     android:id="@+id/tv_admin_item_chi_tiet_don_hang_gia"
                     android:text="1.200.000 ₫"
-                    android:textColor="@color/Nude_pink"
+                    android:textColor="@color/red"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"

@@ -3,11 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="16dp"
-    android:layout_marginBottom="12dp"
+    android:layout_marginBottom="10dp"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="16dp"
-    app:cardElevation="2dp">
+    app:cardElevation="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -23,7 +22,7 @@
             android:paddingHorizontal="8dp"
             android:paddingVertical="4dp"
             android:text="#DH-49282"
-            android:textColor="@color/Nude_pink"
+            android:textColor="@color/ButtonOnBackgroud"
             android:textSize="13sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -103,7 +102,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="1,250,000 đ"
-            android:textColor="@color/Nude_pink"
+            android:textColor="@color/red"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -138,7 +137,7 @@
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="6dp"
                 android:text="CHỜ XÁC NHẬN"
-                android:textColor="@color/Nude_pink"
+                android:textColor="@color/red"
                 android:textSize="13sp"
                 android:textStyle="bold" />
 
@@ -151,7 +150,7 @@
                 android:id="@+id/bt_admin_item_don_hang_xac_nhan"
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
-                android:background="@drawable/button_backgroud"
+                android:background="@drawable/button_on_backgroud"
                 android:paddingHorizontal="20dp"
                 android:text="Xác nhận ngay"
                 android:gravity="center"

@@ -6,7 +6,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/LightBackgroud"
     tools:context=".admin.main.AdminMainActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_marginTop="16dp"
-        android:background="@android:color/transparent"
+        android:background="@color/white"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -286,7 +286,7 @@
                     <ImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:background="@drawable/button_backgroud"
+                        android:background="@drawable/button_on_backgroud"
                         android:backgroundTint="@color/white"
                         android:elevation="2dp"
                         android:padding="12dp"
@@ -313,7 +313,7 @@
                     <ImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:background="@drawable/button_backgroud"
+                        android:background="@drawable/button_on_backgroud"
                         android:backgroundTint="@color/white"
                         android:elevation="2dp"
                         android:padding="12dp"
@@ -340,7 +340,7 @@
                     <ImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:background="@drawable/button_backgroud"
+                        android:background="@drawable/button_on_backgroud"
                         android:backgroundTint="@color/white"
                         android:elevation="2dp"
                         android:padding="12dp"
@@ -367,7 +367,7 @@
                     <ImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:background="@drawable/button_backgroud"
+                        android:background="@drawable/button_on_backgroud"
                         android:backgroundTint="@color/white"
                         android:elevation="2dp"
                         android:padding="12dp"
@@ -394,7 +394,7 @@
                     <ImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:background="@drawable/button_backgroud"
+                        android:background="@drawable/button_on_backgroud"
                         android:backgroundTint="@color/white"
                         android:elevation="2dp"
                         android:padding="12dp"
@@ -422,7 +422,7 @@
                     <ImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:background="@drawable/button_backgroud"
+                        android:background="@drawable/button_on_backgroud"
                         android:backgroundTint="@color/white"
                         android:elevation="2dp"
                         android:padding="12dp"
@@ -450,7 +450,7 @@
                     <ImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:background="@drawable/button_backgroud"
+                        android:background="@drawable/button_on_backgroud"
                         android:backgroundTint="@color/white"
                         android:elevation="2dp"
                         android:padding="12dp"
@@ -474,8 +474,8 @@
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="16dp"
-                android:background="@drawable/button_backgroud"
-                android:backgroundTint="@color/Nude_pink"
+                android:background="@drawable/button_on_backgroud"
+                android:backgroundTint="@color/ButtonOnBackgroud"
                 android:text="Đăng xuất"
                 android:textColor="@color/white"
                 android:textSize="16sp"
