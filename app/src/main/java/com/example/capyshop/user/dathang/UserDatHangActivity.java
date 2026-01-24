@@ -16,18 +16,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capyshop.R;
-import com.example.capyshop.user.giohang.UserGioHang;
 import com.example.capyshop.common.activity.BaseActivity;
 import com.example.capyshop.common.retrofit.ApiUser;
 import com.example.capyshop.common.retrofit.RetrofitClient;
 import com.example.capyshop.common.utils.Utils;
+import com.example.capyshop.user.donhang.UserDonHangActivity;
+import com.example.capyshop.user.giohang.UserGioHang;
 import com.example.capyshop.user.main.UserMainActivity;
 import com.example.capyshop.user.thongtincanhan.UserThongTinCaNhanBottomSheetCaiDatTaiKhoan;
 import com.google.gson.Gson;
 
-import io.paperdb.Paper;
 import java.text.DecimalFormat;
 
+import io.paperdb.Paper;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -308,10 +309,27 @@ public class UserDatHangActivity extends BaseActivity {
                                             // 3. Giải phóng danh sách mua hàng tạm thời
                                             Utils.mangMuaHang.clear();
 
-                                            // 4. Chuyển màn hình
-                                            Intent intent = new Intent(getApplicationContext(), UserMainActivity.class);
-                                            startActivity(intent);
-                                            finish();
+                                            // 4. Hien thi BottomSheet Thanh Cong
+                                            UserDatHangThanhCongBottomSheet bottomSheet = new UserDatHangThanhCongBottomSheet(new UserDatHangThanhCongBottomSheet.OnActionListener() {
+                                                @Override
+                                                public void onContinueShopping() {
+                                                    Intent intent = new Intent(getApplicationContext(), UserMainActivity.class);
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                    startActivity(intent);
+                                                    finish();
+                                                }
+
+                                                @Override
+                                                public void onViewOrderDetails() {
+                                                    // Chuyen den man hinh lich su don hang
+                                                    Intent intent = new Intent(getApplicationContext(), UserDonHangActivity.class);
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                    startActivity(intent);
+                                                    finish();
+                                                }
+                                            });
+                                            bottomSheet.setCancelable(false);
+                                            bottomSheet.show(getSupportFragmentManager(), "OrderSuccessBottomSheet");
                                         } else {
                                             Toast.makeText(getApplicationContext(), donHangModel.getMessage(), Toast.LENGTH_SHORT).show();
                                         }
