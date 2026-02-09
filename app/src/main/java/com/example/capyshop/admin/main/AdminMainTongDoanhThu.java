@@ -1,6 +1,6 @@
 package com.example.capyshop.admin.main;
 
-public class AdminTongDoanhThu{
+public class AdminMainTongDoanhThu {
     private long tongTien;
     private String thoiGianTao;
 

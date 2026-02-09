@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
@@ -17,8 +16,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capyshop.R;
 import com.example.capyshop.common.activity.BaseActivity;
+import com.example.capyshop.common.retrofit.ApiCommon;
 import com.example.capyshop.common.retrofit.ApiUser;
+import com.example.capyshop.common.retrofit.Authorization;
 import com.example.capyshop.common.retrofit.RetrofitClient;
+import com.example.capyshop.common.retrofit.RetrofitClientThongBao;
+import com.example.capyshop.common.thongbao.GuiThongBao;
+import com.example.capyshop.common.thongbao.Message;
+import com.example.capyshop.common.thongbao.Notification;
 import com.example.capyshop.common.utils.Utils;
 import com.example.capyshop.user.donhang.UserDonHangActivity;
 import com.example.capyshop.user.giohang.UserGioHang;
@@ -26,14 +31,18 @@ import com.example.capyshop.user.main.UserMainActivity;
 import com.example.capyshop.user.thongtincanhan.UserThongTinCaNhanBottomSheetCaiDatTaiKhoan;
 import com.google.gson.Gson;
 
+import org.apache.commons.logging.LogFactory;
+
 import java.text.DecimalFormat;
 
 import io.paperdb.Paper;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+import okhttp3.OkHttpClient;
 
 public class UserDatHangActivity extends BaseActivity {
+    private static final org.apache.commons.logging.Log log = LogFactory.getLog(UserDatHangActivity.class);
     Toolbar tbDatHang;
     TextView tvTongTienDatHang, tvHoVaTenDatHang, tvSoDienThoaiDatHang, tvDiaChiDatHang;
     CardView cvThongTinCaNhanDatHang;
@@ -41,6 +50,9 @@ public class UserDatHangActivity extends BaseActivity {
     AppCompatButton btDatHang;
     // Khai báo Retrofit Service và RxJava Disposable
     ApiUser apiUser;
+    ApiCommon apiCommon;
+
+    OkHttpClient okHttpClient;
     // Quản lý các luồng RxJava để tránh rò rỉ bộ nhớ
     CompositeDisposable compositeDisposable = new CompositeDisposable();
 
@@ -91,6 +103,7 @@ public class UserDatHangActivity extends BaseActivity {
         btDatHang = findViewById(R.id.bt_dat_hang);
         // Khởi tạo Retrofit client để giao tiếp với API
         apiUser = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiUser.class);
+        apiCommon = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiCommon.class);
         // Cấu hình RecyclerView
         rvDanhSachSanPhamDatHang.setHasFixedSize(true);
         rvDanhSachSanPhamDatHang.setLayoutManager(new LinearLayoutManager(this));
@@ -110,14 +123,11 @@ public class UserDatHangActivity extends BaseActivity {
         tbDatHang.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(v.getRootView().getContext())
-                        .setTitle("Xác nhận rời đi")
-                        .setMessage("Bạn có chắc muốn rời khỏi bước đặt hàng?")
-                        .setPositiveButton("Đồng ý", (dialog, which) -> {
+                Utils.thietLapBottomSheetDialog(UserDatHangActivity.this, "Xác nhận rời đi",
+                        "Bạn có chắc muốn rời khỏi bước đặt hàng?", "Đồng ý", () -> {
                             finish();
-                        })
-                        .setNegativeButton("Hủy", (dialog, which) -> dialog.dismiss())
-                        .show();
+                        });
+
             }
         });
     }
@@ -188,7 +198,11 @@ public class UserDatHangActivity extends BaseActivity {
         // hien thi teen va so dien thoai
         tvHoVaTenDatHang.setText(Utils.userNguoiDung_Current.getHoTenNguoiDung());
         tvSoDienThoaiDatHang.setText(Utils.userNguoiDung_Current.getSoDienThoai());
-        tvDiaChiDatHang.setText(Utils.userNguoiDung_Current.getDiaChi());
+        if (TextUtils.isEmpty(Utils.userNguoiDung_Current.getDiaChi())) {
+            tvDiaChiDatHang.setText("Vui lòng nhập địa chỉ đặt hàng");
+        } else {
+            tvDiaChiDatHang.setText(Utils.userNguoiDung_Current.getDiaChi());
+        }
 
         cvThongTinCaNhanDatHang.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -272,8 +286,8 @@ public class UserDatHangActivity extends BaseActivity {
                 String chiTietDonHang = new Gson().toJson(Utils.mangMuaHang);
 
                 // Bắt đầu chuỗi Validation (Kiểm tra dữ liệu đầu vào)
-                if (TextUtils.isEmpty(diaChi)) {
-                    tvDiaChiDatHang.setError("Vui lòng nhập địa chỉ nhận hàng");
+                if (TextUtils.isEmpty(Utils.userNguoiDung_Current.getDiaChi())) {
+                    Toast.makeText(getApplicationContext(), "Vui lòng nhập địa chỉ nhận hàng", Toast.LENGTH_SHORT).show();
                 }else {
                     // post dữ liệu đơn hàng lên database
                     compositeDisposable.add(apiUser.guiDonHang(maNguoiDung, maPhuongThucThanhToan, maDonViVanChuyen, hoVaTenNguoiDung, soDienThoai, diaChi, String.valueOf(tongTien), soLuong, chiTietDonHang)
@@ -282,7 +296,7 @@ public class UserDatHangActivity extends BaseActivity {
                             .subscribe(
                                     donHangModel -> {
                                         if (donHangModel.isSuccess()) {
-                                            Toast.makeText(getApplicationContext(), "Đặt hàng thành công!", Toast.LENGTH_SHORT).show();
+                                            guiThongBaoDatHangThanhCong();
 
                                             // 1. Duyệt qua danh sách sản phẩm vừa mua để xóa trên Server
                                             for (UserGioHang itemMua : Utils.mangMuaHang) {
@@ -312,7 +326,7 @@ public class UserDatHangActivity extends BaseActivity {
                                             // 4. Hien thi BottomSheet Thanh Cong
                                             UserDatHangThanhCongBottomSheet bottomSheet = new UserDatHangThanhCongBottomSheet(new UserDatHangThanhCongBottomSheet.OnActionListener() {
                                                 @Override
-                                                public void onContinueShopping() {
+                                                public void onTiepTucMuaSam() {
                                                     Intent intent = new Intent(getApplicationContext(), UserMainActivity.class);
                                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                     startActivity(intent);
@@ -320,12 +334,15 @@ public class UserDatHangActivity extends BaseActivity {
                                                 }
 
                                                 @Override
-                                                public void onViewOrderDetails() {
+                                                public void onXemChiTietDonHang() {
                                                     // Chuyen den man hinh lich su don hang
+                                                    String trangThai = "CHO_XAC_NHAN";
                                                     Intent intent = new Intent(getApplicationContext(), UserDonHangActivity.class);
+                                                    intent.putExtra("trangthai", trangThai);
                                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                     startActivity(intent);
                                                     finish();
+
                                                 }
                                             });
                                             bottomSheet.setCancelable(false);
@@ -341,5 +358,43 @@ public class UserDatHangActivity extends BaseActivity {
                 }
             }
         });
+    }
+
+    private void guiThongBaoDatHangThanhCong() {
+        if (Utils.accessTokenSend != null) {
+             okHttpClient = new OkHttpClient.Builder()
+                    .addInterceptor(new Authorization(Utils.accessTokenSend))
+                    .build();
+        }
+        // lấy token quản trị viên
+        compositeDisposable.add(apiCommon.layToken("ADMIN")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        nguoiDungModel -> {
+                            if (nguoiDungModel.isSuccess()) {
+                                for (int i = 0; i < nguoiDungModel.getResult().size(); i++) {
+                                    String token = nguoiDungModel.getResult().get(i).getToken();
+                                    Notification notification = new Notification("Đơn hàng mới", "Bạn có đơn hàng mới, vui lòng kiểm tra");
+                                    Message message = new Message(token, notification);
+                                    GuiThongBao guiThongBao = new GuiThongBao(message);
+                                    ApiCommon apiCommon = RetrofitClientThongBao.getInstance(okHttpClient).create(ApiCommon.class);
+                                    compositeDisposable.add(apiCommon.guiNhanThongBao(guiThongBao)
+                                            .subscribeOn(Schedulers.io())
+                                            .observeOn(AndroidSchedulers.mainThread())
+                                            .subscribe(
+                                                    nhanThongBao -> {
+
+                                                    }, throwable -> {
+                                                        Log.d("log", throwable.getMessage());
+                                                    }
+                                            ));
+                                }
+                            }
+                        }, throwable -> {
+                            Log.d("logg", throwable.getMessage());
+                        }
+                ));
+
     }
 }

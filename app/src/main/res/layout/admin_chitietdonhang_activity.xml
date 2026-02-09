@@ -69,7 +69,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:text="15 tháng 10, 2023 lúc 09:41"
-                        android:textColor="@color/Gray"
+                        android:textColor="@color/gray"
                         android:textSize="13sp" />
 
 

@@ -4,6 +4,8 @@ package com.example.capyshop.user.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -23,16 +25,22 @@ import com.example.capyshop.R;
 import com.example.capyshop.common.activity.BaseActivity;
 import com.example.capyshop.common.danhmuc.DanhMuc;
 import com.example.capyshop.common.quangcao.QuangCao;
-import com.example.capyshop.common.sanpham.SanPham;
+import com.example.capyshop.common.retrofit.ApiCommon;
 import com.example.capyshop.common.retrofit.ApiUser;
 import com.example.capyshop.common.retrofit.RetrofitClient;
+import com.example.capyshop.common.sanpham.SanPham;
+import com.example.capyshop.common.retrofit.AccessToken;
 import com.example.capyshop.common.utils.Utils;
 import com.example.capyshop.user.tìmkiemsanpham.UserTimKiemSanPhamActivity;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.nex3z.notificationbadge.NotificationBadge;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
@@ -57,6 +65,7 @@ public class UserMainActivity extends BaseActivity {
     // Khai báo Adapter và các đối tượng dữ liệu
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     ApiUser apiUser;
+    ApiCommon apiCommon;
     UserMainSanPhamMoiAdapter userMainSanPhamMoiAdapter;
     UserMainDanhMucAdapter userMainDanhMucAdapter;
     List<QuangCao> mangUserMainQuangCao;
@@ -67,10 +76,11 @@ public class UserMainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.user_main_activity);
         super.onCreate(savedInstanceState);
-        // Khởi tạo Retrofit để gọi API
-        apiUser = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiUser.class);
+        //
         anhXa(); // Ánh xạ UI
         caiDatToolbar(); // Cấu hình Toolbar
+        layAccessToken(); // Lấy token Firebase
+        layToken(); // Lấy token Firebase
         // Kiểm tra kết nối mạng trước khi tải dữ liệu
         if (Utils.kiemTraKetNoi(this)) {
             hienThiQuangCao(); // Hiển thị quảng cáo
@@ -113,6 +123,10 @@ public class UserMainActivity extends BaseActivity {
         bottomNavigationViewMenuMain = findViewById(R.id.bn_menu_main);
         viewToolbarBackgroudMain = findViewById(R.id.v_toolbar_backgroud_main);
         nestedScrollViewThongTinCaNhan = findViewById(R.id.nsv_main);
+
+        // Khởi tạo Retrofit để gọi API
+        apiUser = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiUser.class);
+        apiCommon = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiCommon.class);
 
 
         // Khởi tạo danh sách và adapter
@@ -157,6 +171,51 @@ public class UserMainActivity extends BaseActivity {
 
             }
         });
+
+    }
+
+    private void layAccessToken() {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                AccessToken accessToken = new AccessToken();
+                String accessTokenSend = accessToken.getAccessToken();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Utils.accessTokenSend = accessTokenSend;
+                            Log.d("accesstoken", accessTokenSend);
+
+                        }
+                    });
+            }
+        });
+    }
+
+    // Lấy token Firebase
+    private void layToken() {
+        if (Utils.userNguoiDung_Current != null) {
+            FirebaseMessaging.getInstance().getToken()
+                    .addOnSuccessListener(new OnSuccessListener<String>() {
+                        @Override
+                        public void onSuccess(String token) {
+                            int maNguoiDung = Utils.userNguoiDung_Current.getMaNguoiDung();
+                            if (!TextUtils.isEmpty(token)) {
+                                compositeDisposable.add(apiCommon.capNhapToken(maNguoiDung, token)
+                                        .subscribeOn(Schedulers.io())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .subscribe(
+                                                nguoiDungModel -> {
+
+                                                }, throwable -> {
+                                                    Log.d("token", throwable.getMessage());
+                                                }
+                                        ));
+                            }
+                        }
+                    });
+        }
 
     }
 

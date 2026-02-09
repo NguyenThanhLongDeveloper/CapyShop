@@ -12,18 +12,23 @@ import android.widget.Toast;
 import androidx.appcompat.widget.AppCompatButton;
 
 import com.example.capyshop.R;
-import com.example.capyshop.user.dangki.UserDangKiActivity;
+import com.example.capyshop.admin.main.AdminMainActivity;
 import com.example.capyshop.common.activity.BaseActivity;
 import com.example.capyshop.common.retrofit.ApiUser;
 import com.example.capyshop.common.retrofit.RetrofitClient;
 import com.example.capyshop.common.utils.Utils;
-import com.example.capyshop.admin.main.AdminMainActivity;
-import com.example.capyshop.user.quenmatkhau.UserQuenMatKhauActivity;
+import com.example.capyshop.user.dangki.UserDangKiActivity;
 import com.example.capyshop.user.main.UserMainActivity;
+import com.example.capyshop.user.quenmatkhau.UserQuenMatKhauActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import io.paperdb.Paper;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
@@ -33,11 +38,11 @@ public class UserDangNhapActivity extends BaseActivity {
     TextView tvDangKy, tvQuenMatKhau;
     AppCompatButton btDangNhap;
     ProgressBar pbDangNhap;
+    FirebaseAuth firebaseAuth;
 
     // Khai báo Retrofit Service và RxJava Disposable
     ApiUser apiUser;
-    CompositeDisposable compositeDisposable = new CompositeDisposable(); // Quản lý các luồng RxJava để tránh rò rỉ bộ
-                                                                         // nhớ
+    CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +75,7 @@ public class UserDangNhapActivity extends BaseActivity {
 
     // Ánh xạ các thành phần UI
     private void anhXa() {
+        // Ánh xạ các thành phần UI từ layout XML
         tvDangKy = findViewById(R.id.tv_dang_ky);
         tvQuenMatKhau = findViewById(R.id.tv_quen_mat_khau);
         btDangNhap = findViewById(R.id.bt_dang_nhap);
@@ -79,6 +85,9 @@ public class UserDangNhapActivity extends BaseActivity {
 
         // Khởi tạo Retrofit client để giao tiếp với API
         apiUser = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiUser.class);
+        // Khởi tạo Firebase Authentication
+        firebaseAuth = FirebaseAuth.getInstance();
+
 
     }
 
@@ -104,7 +113,7 @@ public class UserDangNhapActivity extends BaseActivity {
         });
     }
 
-    // Xử lý sự kiện nút Đăng nhập (Validation và gọi API)
+    // Xử lý sự kiện nút Đăng nhập
     private void xuLySuKienDangNhap() {
         btDangNhap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,48 +133,69 @@ public class UserDangNhapActivity extends BaseActivity {
                 } else if (TextUtils.isEmpty(matKhau)) {
                     edtMatKhauDangNhap.setError("Vui lòng nhập mật khẩu");
                 } else {
-                    // post data lên server bằng Retrofit và RxJava
+                    // Hiển thị ProgressBar
                     pbDangNhap.setVisibility(View.VISIBLE);
-                    compositeDisposable.add(apiUser.dangNhap(email, matKhau)
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(
-                                    // Xử lý kết quả trả về từ server
-                                    nguoiDungModel -> {
-                                        if (nguoiDungModel.isSuccess()) {
-                                            // Đăng nhập thành công: Lưu thông tin người dùng và chuyển màn hình chính
-                                            Utils.userNguoiDung_Current = nguoiDungModel.getResult().get(0);
-
-                                            Paper.book().write("email", email);
-                                            Paper.book().write("matkhau", matKhau);
-                                            if (Utils.userNguoiDung_Current.getVaiTro().equals("ADMIN")) {
-                                                Intent intent = new Intent(getApplicationContext(),
-                                                        AdminMainActivity.class);
-                                                startActivity(intent);
-                                                finish();
-                                            } else {
-                                                Intent intent = new Intent(getApplicationContext(),
-                                                        UserMainActivity.class);
-                                                startActivity(intent);
-                                                finish();
-                                            }
-                                        } else {
-                                            // Đăng nhập thất bại
-                                            Toast.makeText(getApplicationContext(), nguoiDungModel.getMessage(), Toast.LENGTH_SHORT).show();
-
-                                        }
+                    // Đăng nhập bằng Firebase Authentication
+                    firebaseAuth.signInWithEmailAndPassword(email, matKhau)
+                            .addOnCompleteListener(UserDangNhapActivity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        // Firebase OK -> Tiếp tục đăng nhập vào Server của bạn
+                                        dangNhap(email, matKhau);
+                                    } else {
                                         pbDangNhap.setVisibility(View.INVISIBLE);
+                                        String error = task.getException() != null ? task.getException().getMessage() : "Sai tài khoản hoặc mật khẩu";
+                                        Toast.makeText(UserDangNhapActivity.this, "Lỗi: " + error, Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
 
-                                    },
-                                    throwable -> {
-                                        // Xử lý lỗi kết nối mạng hoặc lỗi hệ thống
-                                        Toast.makeText(getApplicationContext(), throwable.getMessage(),
-                                                Toast.LENGTH_SHORT).show();
-                                        pbDangNhap.setVisibility(View.INVISIBLE);
-                                    }));
                 }
             }
         });
+    }
+
+    private void dangNhap(String email, String matKhau) {
+        // post data lên server bằng Retrofit và RxJava
+        pbDangNhap.setVisibility(View.VISIBLE);
+        compositeDisposable.add(apiUser.dangNhap(email, matKhau)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        // Xử lý kết quả trả về từ server
+                        nguoiDungModel -> {
+                            if (nguoiDungModel.isSuccess()) {
+                                // Đăng nhập thành công: Lưu thông tin người dùng và chuyển màn hình chính
+                                Utils.userNguoiDung_Current = nguoiDungModel.getResult().get(0);
+                                // Lưu thông tin người dùng vào PaperDB
+                                Paper.book().write("email", email);
+                                Paper.book().write("matkhau", matKhau);
+                                if (Utils.userNguoiDung_Current.getVaiTro().equals("ADMIN")) {
+                                    Intent intent = new Intent(getApplicationContext(),
+                                            AdminMainActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                } else {
+                                    Intent intent = new Intent(getApplicationContext(),
+                                            UserMainActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            } else {
+                                // Đăng nhập thất bại
+                                Toast.makeText(getApplicationContext(), nguoiDungModel.getMessage(), Toast.LENGTH_SHORT).show();
+
+                            }
+                            pbDangNhap.setVisibility(View.INVISIBLE);
+
+                        },
+                        throwable -> {
+                            // Xử lý lỗi kết nối mạng hoặc lỗi hệ thống
+                            Toast.makeText(getApplicationContext(), throwable.getMessage(),
+                                    Toast.LENGTH_SHORT).show();
+                            pbDangNhap.setVisibility(View.INVISIBLE);
+                        }));
     }
 
 }

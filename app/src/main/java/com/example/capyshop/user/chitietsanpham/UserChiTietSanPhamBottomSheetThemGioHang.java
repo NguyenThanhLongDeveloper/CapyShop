@@ -27,10 +27,9 @@ import com.example.capyshop.common.utils.Utils;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.gson.Gson;
 
-import java.text.NumberFormat;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
@@ -46,6 +45,9 @@ public class UserChiTietSanPhamBottomSheetThemGioHang extends BottomSheetDialogF
 
     private SanPham userSanPham;
     private ApiUser apiUser;
+    long tongTien = 0;
+    long soLuong = 1;
+    int soLuongTon = 0;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private UserChiTietSanPhamThuocTinhAdapter userChiTietSanPhamThuocTinhAdapter;
 
@@ -66,7 +68,8 @@ public class UserChiTietSanPhamBottomSheetThemGioHang extends BottomSheetDialogF
         View view = inflater.inflate(R.layout.user_chitietsanpham_bottomsheet_layout, container, false);
         apiUser = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiUser.class);
         anhXa(view);
-        hienThiThuocTinhVaGia();
+        hienThiThuocTinhVaHinhAnh();
+        tinhTongTien();
         xuLyTangGiamSoLuong();
         xuLyThemGioHang();
         return view;
@@ -85,10 +88,8 @@ public class UserChiTietSanPhamBottomSheetThemGioHang extends BottomSheetDialogF
         rvBottomSheetThuocTinhChiTietSanPham.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
-    private void hienThiThuocTinhVaGia() {
+    private void hienThiThuocTinhVaHinhAnh() {
         if (userSanPham != null) {
-            NumberFormat numberFormat = NumberFormat.getInstance(new Locale("vi", "VN"));
-            tvBottomSheetGiaChiTietSanPham.setText(numberFormat.format(userSanPham.getGiaSanPham()) + " đ");
             Glide.with(this).load(userSanPham.getHinhAnhSanPham()).into(ivBottomSheetHinhAnhChiTietSanPham);
 
             if (userSanPham.getThuocTinh() != null) {
@@ -101,33 +102,53 @@ public class UserChiTietSanPhamBottomSheetThemGioHang extends BottomSheetDialogF
     }
 
     private void xuLyTangGiamSoLuong() {
-        ivBottomSheetGiamChiTietSanPham.setOnClickListener(v -> {
-            int soLuong = Integer.parseInt(tvBottomSheetSoLuongChiTietSanPham.getText().toString());
-            if (soLuong > 1) {
-                soLuong--;
-                tvBottomSheetSoLuongChiTietSanPham.setText(String.valueOf(soLuong));
-            }
-        });
+        soLuong = Integer.parseInt(tvBottomSheetSoLuongChiTietSanPham.getText().toString());
+        soLuongTon = userSanPham.getSoLuongTon();
+        if (soLuongTon == 0) {
+            tvBottomSheetSoLuongChiTietSanPham.setText(String.valueOf(0));
 
-        ivBottomSheetTangChiTietSanPham.setOnClickListener(v -> {
-            int soLuong = Integer.parseInt(tvBottomSheetSoLuongChiTietSanPham.getText().toString());
-            if (soLuong < 10) {
-                soLuong++;
-                tvBottomSheetSoLuongChiTietSanPham.setText(String.valueOf(soLuong));
-            } else {
-                Toast.makeText(getContext(), "Số lượng đạt giới hạn", Toast.LENGTH_SHORT).show();
-            }
-        });
+        } else {
+            ivBottomSheetGiamChiTietSanPham.setOnClickListener(v -> {
+                if (soLuong > 1) {
+                    soLuong--;
+                    tvBottomSheetSoLuongChiTietSanPham.setText(String.valueOf(soLuong));
+                    tinhTongTien();
+                }
+            });
+            ivBottomSheetTangChiTietSanPham.setOnClickListener(v -> {
+                if (soLuong < soLuongTon) {
+                    soLuong++;
+                    tvBottomSheetSoLuongChiTietSanPham.setText(String.valueOf(soLuong));
+                    tinhTongTien();
+                } else {
+                    Toast.makeText(getContext(), "Số lượng đạt giới hạn", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+    }
+
+    private void tinhTongTien() {
+        soLuong = Integer.parseInt(tvBottomSheetSoLuongChiTietSanPham.getText().toString());
+        tongTien =  userSanPham.getGiaSanPham() * soLuong;
+
+        DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
+        tvBottomSheetGiaChiTietSanPham.setText(decimalFormat.format(tongTien) + " đ");
     }
 
     private void xuLyThemGioHang() {
         btBottomSheetThemGioHangChiTietSanPham.setOnClickListener(v -> {
+            soLuongTon = userSanPham.getSoLuongTon();
             if (Utils.userNguoiDung_Current == null) {
                 Utils.thietLapBottomSheetDialog(getContext(), "Vui lòng đăng nhập", "Vui lòng đăng nhập để sử dụng", "Đăng nhập", () -> {
                     dismiss();
                     startActivity(new Intent(getContext(), UserDangNhapActivity.class));
                 });
                 return;
+            } else if (soLuongTon == 0) {
+                Toast.makeText(getContext(), "sản phẩm đã hết hàng", Toast.LENGTH_SHORT).show();
+                return;
+
             }
             List<Integer> mangThuocTinh = layDanhSachIdThuocTinhDaChon(true);
             if (mangThuocTinh != null) {

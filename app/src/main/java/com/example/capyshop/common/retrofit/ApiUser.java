@@ -46,7 +46,8 @@ public interface ApiUser {
         @POST("user/timkiemsanpham/user_timkiemsanpham.php")
         @FormUrlEncoded
         Observable<SanPhamModel> timKiemSanPham(
-                @Field("timkiemsanpham") String timKiemSanPham);
+                @Field("timkiemsanpham") String timKiemSanPham
+        );
 
         // Tạo tài khoản mới cho người dùng
         @POST("user/dangki/user_dangki.php")
@@ -55,7 +56,9 @@ public interface ApiUser {
                 @Field("email") String email,
                 @Field("sodienthoai") String soDienThoai,
                 @Field("hotennguoidung") String tenNguoiDung,
-                @Field("matkhau") String matKhau);
+                @Field("matkhau") String matKhau,
+                @Field("uid") String uId
+        );
 
         // đang nhập thông tin của tài khoản người dùng
         @POST("user/dangnhap/user_dangnhap.php")

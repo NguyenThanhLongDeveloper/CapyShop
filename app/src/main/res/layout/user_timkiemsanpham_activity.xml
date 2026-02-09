@@ -37,7 +37,8 @@
                 app:iconifiedByDefault="false"
                 app:queryBackground="@android:color/transparent"
                 app:queryHint="Tìm kiếm sản phẩm ..."
-                app:searchIcon="@drawable/ic_tim_kiem" />
+                app:searchIcon="@drawable/ic_tim_kiem"
+                app:searchHintIcon="@color/ButtonOnBackgroud"/>
 
         </androidx.cardview.widget.CardView>
 

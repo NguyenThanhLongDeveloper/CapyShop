@@ -4,7 +4,7 @@ include "../../common/ket_noi.php";
 $email   = $_POST['email'];
 $matKhau = $_POST['matkhau'];
 
-// 1. Lấy người dùng theo email (KHÔNG kiểm tra mật khẩu ở SQL)
+// 1. Lấy người dùng theo email 
 $query = '
     SELECT 
         maNguoiDung,
@@ -43,7 +43,7 @@ if ($row = mysqli_fetch_assoc($data)) {
         // Sai mật khẩu
         $arr = [
             'success' => false,
-            'message' => 'Email hoặc mật khẩu không chính xác',
+            'message' => 'mật khẩu không chính xác',
             'result'  => []
         ];
     }

@@ -9,15 +9,21 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 
 import com.example.capyshop.R;
 import com.example.capyshop.common.activity.BaseActivity;
-import com.example.capyshop.user.dangnhap.UserDangNhapActivity;
 import com.example.capyshop.common.retrofit.ApiUser;
 import com.example.capyshop.common.retrofit.RetrofitClient;
 import com.example.capyshop.common.utils.Utils;
+import com.example.capyshop.user.dangnhap.UserDangNhapActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
@@ -29,6 +35,8 @@ public class UserDangKiActivity extends BaseActivity {
     AppCompatButton btDangKi;
     TextView tvDangNhap;
     ProgressBar pbDangKi;
+    FirebaseAuth firebaseAuth;
+    FirebaseUser firebaseUser;
 
     // Khai báo Retrofit Service và RxJava Disposable
     ApiUser apiUser;
@@ -59,6 +67,7 @@ public class UserDangKiActivity extends BaseActivity {
 
     // Ánh xạ các thành phần UI
     private void anhXa() {
+        // Ánh xạ các thành phần UI từ layout XML
         edtEmailDangKi = findViewById(R.id.edt_email_dang_ki);
         edtSoDienThoaiDangKi = findViewById(R.id.edt_so_dien_thoai_dang_ki);
         edtHoTenNguoiDungDangKi = findViewById(R.id.edt_ten_nguoi_dung_dang_ki);
@@ -70,6 +79,8 @@ public class UserDangKiActivity extends BaseActivity {
 
         // Khởi tạo Retrofit client để giao tiếp với API
         apiUser = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiUser.class);
+        // Khởi tạo Firebase Authentication
+        firebaseAuth = FirebaseAuth.getInstance();
     }
 
     // Xử lý sự kiện click cho TextView "Đăng nhập"
@@ -97,7 +108,7 @@ public class UserDangKiActivity extends BaseActivity {
                 String matKhau = edtMatKhauDangKi.getText().toString().trim();
                 String nhapLaiMatKhau = edtNhapLaiMatKhauDangKi.getText().toString().trim();
 
-                // Bắt đầu chuỗi Validation (Kiểm tra dữ liệu đầu vào)
+                // Kiểm tra dữ liệu đầu vào
                 if (TextUtils.isEmpty(email)) {
                     edtEmailDangKi.setError("Vui lòng nhập email");
                 }else if (!isValidEmail(email)) {
@@ -115,39 +126,57 @@ public class UserDangKiActivity extends BaseActivity {
                 }else if (!matKhau.equals(nhapLaiMatKhau)) {
                     edtNhapLaiMatKhauDangKi.setError("Mật khẩu xác minh không khớp.");
                 }else {
-                    // post data lên server bằng Retrofit và RxJava
-                    pbDangKi.setVisibility(View.VISIBLE);
-                    compositeDisposable.add(apiUser.dangKi(email, soDienThoai, hoTenNguoiDung, matKhau)
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(
-                                    taiKhoanModel -> {
-                                        // Xử lý kết quả trả về từ API
-                                        if (taiKhoanModel.isSuccess()) {
-                                            // Lưu thông tin người dùng hiện tại (nếu cần thiết cho phiên đăng nhập)
-                                            Utils.userNguoiDung_Current.setEmail(email);
-
-                                            // Đăng ký thành công: Thông báo và chuyển màn hình
-                                            Toast.makeText(getApplicationContext(),"Đăng ký thành công", Toast.LENGTH_SHORT).show();
-                                            Intent intent = new Intent(getApplicationContext(), UserDangNhapActivity.class);
-                                            startActivity(intent);
-                                            finish();
-                                        }else {
-                                            // Xử lý lỗi từ server (ví dụ: Email đã tồn tại)
-                                            Toast.makeText(getApplicationContext(), taiKhoanModel.getMessage(), Toast.LENGTH_SHORT).show();
+                    // Đăng ký tài khoản bằng Firebase Authentication
+                    firebaseAuth.createUserWithEmailAndPassword(email, matKhau)
+                            .addOnCompleteListener(UserDangKiActivity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        // Đăng ký thành công: Thực hiện đăng ký thông tin người dùng
+                                        firebaseUser = firebaseAuth.getCurrentUser();
+                                        if (firebaseUser != null) {
+                                            String uID = firebaseUser.getUid();
+                                            dangKi(email, soDienThoai, hoTenNguoiDung, matKhau, uID);
+                                        } else {
+                                            Toast.makeText(getApplicationContext(), "Email đã tồn tại", Toast.LENGTH_SHORT).show();
                                         }
-                                        pbDangKi.setVisibility(View.INVISIBLE);
-                                    },
-                                    throwable -> {
-                                        // Xử lý lỗi kết nối mạng hoặc lỗi hệ thống
-                                        Toast.makeText(getApplicationContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
-                                        pbDangKi.setVisibility(View.INVISIBLE);
                                     }
-
-                            ));
+                                }
+                            });
                 }
             }
         });
+    }
+
+    private void dangKi(String email, String soDienThoai, String hoTenNguoiDung, String matKhau, String uID) {
+        // post data lên server bằng Retrofit và RxJava
+        pbDangKi.setVisibility(View.VISIBLE);
+        compositeDisposable.add(apiUser.dangKi(email, soDienThoai, hoTenNguoiDung, matKhau, uID)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        nguoiDungModel -> {
+                            // Xử lý kết quả trả về từ API
+                            if (nguoiDungModel.isSuccess()) {
+
+                                // Đăng ký thành công: Thông báo và chuyển màn hình
+                                Toast.makeText(getApplicationContext(),"Đăng ký thành công", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(getApplicationContext(), UserDangNhapActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }else {
+                                // Xử lý lỗi từ server (ví dụ: Email đã tồn tại)
+                                Toast.makeText(getApplicationContext(), nguoiDungModel.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                            pbDangKi.setVisibility(View.INVISIBLE);
+                        },
+                        throwable -> {
+                            // Xử lý lỗi kết nối mạng hoặc lỗi hệ thống
+                            Toast.makeText(getApplicationContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                            pbDangKi.setVisibility(View.INVISIBLE);
+                        }
+
+                ));
     }
 
 }

@@ -12,9 +12,9 @@ public class NguoiDung implements Serializable {
     private String vaiTro;
     private String trangThai;
     private String thoiGianTao;
+    private String uId;
+    private String token;
 
-    public NguoiDung() {
-    }
 
     public int getMaNguoiDung() {
         return maNguoiDung;
@@ -86,5 +86,21 @@ public class NguoiDung implements Serializable {
 
     public void setThoiGianTao(String thoiGianTao) {
         this.thoiGianTao = thoiGianTao;
+    }
+
+    public String getuId() {
+        return uId;
+    }
+
+    public void setuId(String uId) {
+        this.uId = uId;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

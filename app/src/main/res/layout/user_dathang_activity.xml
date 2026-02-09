@@ -96,7 +96,7 @@
 
                     <TextView
                         android:id="@+id/tv_dia_chi_dat_hang"
-                        android:text="địa chỉ"
+                        android:text="địa chỉ đặt hàng"
                         android:textColor="@color/black"
                         android:textSize="14sp"
                         android:layout_margin="5dp"

@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,9 +23,14 @@ public class UserDatHangThanhCongBottomSheet extends BottomSheetDialogFragment {
 
     private OnActionListener listener;
 
+    // Khai báo các biến giao diện (Views)
+    TextView tvTieuDeDatHangThanhCong, tvTieuDeThongBaoThanhCong, tvNoiDungThongBaoThanhCong;
+    ImageView ivHinhAnhDatHangThanhCong;
+    AppCompatButton btTiepTucMuaSam, btXemChiTietDonHang;
+
     public interface OnActionListener {
-        void onContinueShopping();
-        void onViewOrderDetails();
+        void onTiepTucMuaSam();
+        void onXemChiTietDonHang();
     }
 
     public UserDatHangThanhCongBottomSheet(OnActionListener listener) {
@@ -35,25 +42,35 @@ public class UserDatHangThanhCongBottomSheet extends BottomSheetDialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.user_dathang_thanhcong_bottomsheet_layout, container, false);
 
-        AppCompatButton btnContinueShopping = view.findViewById(R.id.btn_continue_shopping);
-        AppCompatButton btnViewOrderDetails = view.findViewById(R.id.btn_view_order_details);
-
-
-        btnContinueShopping.setOnClickListener(v -> {
-            dismiss();
-            if (listener != null) {
-                listener.onContinueShopping();
-            }
-        });
-
-        btnViewOrderDetails.setOnClickListener(v -> {
-            dismiss();
-            if (listener != null) {
-                listener.onViewOrderDetails();
-            }
-        });
+        anhXa(view);
+        xuLySuKien();
 
         return view;
+    }
+
+    private void anhXa(View view) {
+        tvTieuDeDatHangThanhCong = view.findViewById(R.id.tv_tieu_de_dat_hang_thanh_cong);
+        tvTieuDeThongBaoThanhCong = view.findViewById(R.id.tv_tieu_de_thong_bao_thanh_cong);
+        tvNoiDungThongBaoThanhCong = view.findViewById(R.id.tv_noi_dung_thong_bao_thanh_cong);
+        ivHinhAnhDatHangThanhCong = view.findViewById(R.id.iv_hinh_anh_dat_hang_thanh_cong);
+        btTiepTucMuaSam = view.findViewById(R.id.bt_tiep_tuc_mua_sam);
+        btXemChiTietDonHang = view.findViewById(R.id.bt_xem_chi_tiet_don_hang);
+    }
+
+    private void xuLySuKien() {
+        btTiepTucMuaSam.setOnClickListener(v -> {
+            dismiss();
+            if (listener != null) {
+                listener.onTiepTucMuaSam();
+            }
+        });
+
+        btXemChiTietDonHang.setOnClickListener(v -> {
+            dismiss();
+            if (listener != null) {
+                listener.onXemChiTietDonHang();
+            }
+        });
     }
 
     @NonNull

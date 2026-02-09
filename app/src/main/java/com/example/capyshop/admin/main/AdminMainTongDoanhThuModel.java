@@ -5,7 +5,7 @@ import java.util.List;
 public class AdminMainTongDoanhThuModel {
     boolean success;
     String message;
-    List<AdminTongDoanhThu> result;
+    List<AdminMainTongDoanhThu> result;
 
 
     public boolean isSuccess() {
@@ -24,11 +24,11 @@ public class AdminMainTongDoanhThuModel {
         this.message = message;
     }
 
-    public List<AdminTongDoanhThu> getResult() {
+    public List<AdminMainTongDoanhThu> getResult() {
         return result;
     }
 
-    public void setResult(List<AdminTongDoanhThu> result) {
+    public void setResult(List<AdminMainTongDoanhThu> result) {
         this.result = result;
     }
 }

@@ -47,7 +47,7 @@
                     android:layout_gravity="bottom|center_horizontal"
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/image_backgroud"
-                    android:backgroundTint="@color/Gray"
+                    android:backgroundTint="@color/gray"
                     android:paddingHorizontal="12dp"
                     android:paddingVertical="4dp"
                     android:textColor="@color/white"

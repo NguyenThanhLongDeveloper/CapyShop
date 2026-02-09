@@ -15,8 +15,8 @@ import com.example.capyshop.R;
 import com.example.capyshop.common.phuongthucthanhtoan.PhuongThucThanhToan;
 import java.util.List;
 
-public class AdminPhuongThucThanhToanAdapter
-        extends RecyclerView.Adapter<AdminPhuongThucThanhToanAdapter.MyViewHolder> {
+public class AdminQuanLyPhuongThucThanhToanAdapter
+        extends RecyclerView.Adapter<AdminQuanLyPhuongThucThanhToanAdapter.MyViewHolder> {
 
     Context context;
     List<PhuongThucThanhToan> mangPhuongThucThanhToan;
@@ -26,8 +26,8 @@ public class AdminPhuongThucThanhToanAdapter
         void onTrangThaiChange(PhuongThucThanhToan item, boolean isChecked);
     }
 
-    public AdminPhuongThucThanhToanAdapter(Context context, List<PhuongThucThanhToan> mangPhuongThucThanhToan,
-            OnTrangThaiChangeListener listener) {
+    public AdminQuanLyPhuongThucThanhToanAdapter(Context context, List<PhuongThucThanhToan> mangPhuongThucThanhToan,
+                                                 OnTrangThaiChangeListener listener) {
         this.context = context;
         this.mangPhuongThucThanhToan = mangPhuongThucThanhToan;
         this.listenerTrangThai = listener;

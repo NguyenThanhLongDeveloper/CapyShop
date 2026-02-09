@@ -31,7 +31,7 @@ public class AdminQuanLyPhuongThucThanhToanActivity extends BaseActivity {
     List<PhuongThucThanhToan> mangHoatDong = new ArrayList<>();
     List<PhuongThucThanhToan> mangViDienTu = new ArrayList<>();
 
-    AdminPhuongThucThanhToanAdapter adapterHoatDong, adapterViDienTu;
+    AdminQuanLyPhuongThucThanhToanAdapter adapterHoatDong, adapterViDienTu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +53,8 @@ public class AdminQuanLyPhuongThucThanhToanActivity extends BaseActivity {
         setupRecyclerView(rvPhuongThucHoatDong);
         setupRecyclerView(rvViDienTu);
 
-        adapterHoatDong = new AdminPhuongThucThanhToanAdapter(this, mangHoatDong, this::capNhatTrangThaiPhuongThucThanhToan);
-        adapterViDienTu = new AdminPhuongThucThanhToanAdapter(this, mangViDienTu, this::capNhatTrangThaiPhuongThucThanhToan);
+        adapterHoatDong = new AdminQuanLyPhuongThucThanhToanAdapter(this, mangHoatDong, this::capNhatTrangThaiPhuongThucThanhToan);
+        adapterViDienTu = new AdminQuanLyPhuongThucThanhToanAdapter(this, mangViDienTu, this::capNhatTrangThaiPhuongThucThanhToan);
 
         rvPhuongThucHoatDong.setAdapter(adapterHoatDong);
         rvViDienTu.setAdapter(adapterViDienTu);

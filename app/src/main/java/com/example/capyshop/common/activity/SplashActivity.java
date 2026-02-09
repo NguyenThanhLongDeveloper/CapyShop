@@ -24,6 +24,7 @@ public class SplashActivity extends BaseActivity {
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     // Khởi tạo interface kết nối API
     ApiUser apiUser = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiUser.class);
+    // Khởi tạo Firebase Authentication
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +103,8 @@ public class SplashActivity extends BaseActivity {
                                 Toast.makeText(getApplicationContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                     ));
+
         }
     }
+
 }

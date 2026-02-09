@@ -20,6 +20,7 @@ import com.example.capyshop.R;
 import com.example.capyshop.common.activity.BaseActivity;
 import com.example.capyshop.common.activity.XemHinhAnhFullActivity;
 import com.example.capyshop.common.donhang.DonHang;
+import com.example.capyshop.common.retrofit.ApiCommon;
 import com.example.capyshop.common.retrofit.ApiUser;
 import com.example.capyshop.common.retrofit.RetrofitClient;
 import com.example.capyshop.common.utils.Utils;
@@ -28,6 +29,7 @@ import com.example.capyshop.user.dangnhap.UserDangNhapActivity;
 import com.example.capyshop.user.donhang.UserDonHangActivity;
 import com.example.capyshop.user.main.UserMainActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.nex3z.notificationbadge.NotificationBadge;
 
 import java.util.List;
@@ -58,8 +60,8 @@ public class UserThongTinCaNhanActivity extends BaseActivity {
     LinearLayout llThongTinCaNhan;
     ImageView ivThayDoiAnhThongTinCaNhan;
 
-    //
     ApiUser apiUser;
+    ApiCommon apiCommon;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     private final androidx.activity.result.ActivityResultLauncher<Intent> imagePickerLauncher = registerForActivityResult(
@@ -133,6 +135,7 @@ public class UserThongTinCaNhanActivity extends BaseActivity {
 
         // Khởi tạo Retrofit để gọi API
         apiUser = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiUser.class);
+        apiCommon = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiCommon.class);
     }
 
     // Cài đặt Toolbar
@@ -385,8 +388,21 @@ public class UserThongTinCaNhanActivity extends BaseActivity {
                 public void onClick(View v) {
                     Utils.thietLapBottomSheetDialog(UserThongTinCaNhanActivity.this, "Đăng xuất?",
                             "Bạn có chắc muốn thoát không?", "Đăng xuất", () -> {
-                                // 1. Xóa dữ liệu người dùng trong biến toàn cục
+                                // Đăng xuất bằng Firebase
+                                FirebaseAuth.getInstance().signOut();
+                                // Xóa dữ liệu người dùng trong biến toàn cục
                                 Paper.book().destroy();
+                                int maNguoiDung = Utils.userNguoiDung_Current.getMaNguoiDung();
+                                compositeDisposable.add(apiCommon.xoaToken(maNguoiDung)
+                                        .subscribeOn(Schedulers.io())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .subscribe(
+                                                nguoiDungModel -> {
+
+                                                }, throwable -> {
+                                                    Toast.makeText(getApplicationContext(), "Không thể kết nối đến Server", Toast.LENGTH_SHORT).show();
+                                                }
+                                        ));
                                 Utils.userNguoiDung_Current = null;
 
                                 Intent intent = new Intent(getApplicationContext(), UserMainActivity.class);

@@ -71,7 +71,11 @@ public class UserThongTinCaNhanBottomSheetCaiDatTaiKhoan extends BottomSheetDial
     private void hienThiThongTin() {
         edtBottomSheetHoVaTenThongTinCaNhan.setText(Utils.userNguoiDung_Current.getHoTenNguoiDung());
         edtBottomSheetSoDienThoaiThongTinCaNhan.setText(Utils.userNguoiDung_Current.getSoDienThoai());
-        tvBottomSheetQuanLyDiaChiThongTinCaNhan.setText(Utils.userNguoiDung_Current.getDiaChi());
+        if (TextUtils.isEmpty(Utils.userNguoiDung_Current.getDiaChi())) {
+            tvBottomSheetQuanLyDiaChiThongTinCaNhan.setText("Vui lòng nhập địa chỉ");
+        } else {
+            tvBottomSheetQuanLyDiaChiThongTinCaNhan.setText(Utils.userNguoiDung_Current.getDiaChi());
+        }
 
     }
 

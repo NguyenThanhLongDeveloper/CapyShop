@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="Cập nhật 2 giờ trước"
-            android:textColor="@color/Gray"
+            android:textColor="@color/gray"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@id/iv_admin_item_don_vi_van_chuyen_bieu_tuong_thoi_gian"
             app:layout_constraintStart_toEndOf="@id/iv_admin_item_don_vi_van_chuyen_bieu_tuong_thoi_gian"

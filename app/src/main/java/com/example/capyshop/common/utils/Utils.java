@@ -51,6 +51,8 @@ public class Utils {
 
     // Đối tượng lưu trữ thông tin người dùng đang đăng nhập hiện tại
     public static NguoiDung userNguoiDung_Current = new NguoiDung();
+    //
+    public static String accessTokenSend;
 
     // Kiểm tra thiết bị có đang kết nối Wifi hoặc mạng di động hay không.
     public static boolean kiemTraKetNoi(Context context) {

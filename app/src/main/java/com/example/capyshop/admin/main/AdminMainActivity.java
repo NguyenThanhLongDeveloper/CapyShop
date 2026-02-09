@@ -2,6 +2,8 @@ package com.example.capyshop.admin.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,11 +19,15 @@ import com.example.capyshop.R;
 import com.example.capyshop.admin.danhmuc.AdminQuanLyDanhMucActivity;
 import com.example.capyshop.common.activity.BaseActivity;
 import com.example.capyshop.common.retrofit.ApiAdmin;
+import com.example.capyshop.common.retrofit.ApiCommon;
 import com.example.capyshop.common.retrofit.RetrofitClient;
 import com.example.capyshop.common.utils.Utils;
 import com.example.capyshop.user.main.UserMainActivity;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -40,12 +46,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-/**
- * Lớp điều khiển chính cho màn hình Admin
- * File Layout: admin_main_activity.xml
- * Chức năng: Quản lý tổng quan doanh thu, hiển thị biểu đồ sóng (Wave Chart)
- * trượt mượt mà.
- */
+
 public class AdminMainActivity extends BaseActivity {
 
     // --- Khai báo các thành phần giao diện (UI Components) ---
@@ -67,8 +68,9 @@ public class AdminMainActivity extends BaseActivity {
 
     // --- Xử lý dữ liệu và API ---
     ApiAdmin apiAdmin;
+    ApiCommon apiCommon;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
-    List<AdminTongDoanhThu> mangTongDoanhThu = new ArrayList<>();
+    List<AdminMainTongDoanhThu> mangTongDoanhThu = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +80,7 @@ public class AdminMainActivity extends BaseActivity {
         // Khởi tạo các thành phần
         anhXa();
         caiDatToolbar();
+        layToken();
         caiDatBieuDoBanDau();
         hienThiThongTinTaiKhoan();
         xuLySuKienClick();
@@ -115,13 +118,41 @@ public class AdminMainActivity extends BaseActivity {
 
         // Kết nối API
         apiAdmin = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiAdmin.class);
+        apiCommon = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiCommon.class);
 
     }
+
     private void caiDatToolbar() {
         setSupportActionBar(tbAdminTrangChu);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(null);
         }
+    }
+
+    // Lấy token Firebase
+    private void layToken() {
+        if (Utils.userNguoiDung_Current != null) {
+            FirebaseMessaging.getInstance().getToken()
+                    .addOnSuccessListener(new OnSuccessListener<String>() {
+                        @Override
+                        public void onSuccess(String token) {
+                            int maNguoiDung = Utils.userNguoiDung_Current.getMaNguoiDung();
+                            if (!TextUtils.isEmpty(token)) {
+                                compositeDisposable.add(apiCommon.capNhapToken(maNguoiDung, token)
+                                        .subscribeOn(Schedulers.io())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .subscribe(
+                                                nguoiDungModel -> {
+
+                                                }, throwable -> {
+                                                    Log.d("token", throwable.getMessage());
+                                                }
+                                        ));
+                            }
+                        }
+                    });
+        }
+
     }
 
     //Đưa thông tin tài khoản Admin đang đăng nhập lên Toolbar
@@ -146,7 +177,7 @@ public class AdminMainActivity extends BaseActivity {
                                 mangTongDoanhThu = model.getResult();
                                 long tongTien = 0;
                                 if (mangTongDoanhThu != null) {
-                                    for (AdminTongDoanhThu item : mangTongDoanhThu) {
+                                    for (AdminMainTongDoanhThu item : mangTongDoanhThu) {
                                         tongTien += item.getTongTien();
                                     }
                                 }
@@ -156,7 +187,8 @@ public class AdminMainActivity extends BaseActivity {
                                 // Mặc định hiện toàn bộ
                                 capNhatBieuDo(mangTongDoanhThu, null, null);
                             } else {
-                                Toast.makeText(this, model.getMessage(), Toast.LENGTH_SHORT).show();
+                                DecimalFormat formatTien = new DecimalFormat("###,###,###");
+                                tvAdminTongDoanhThu.setText("0" + " đ");
                             }
                         },
                         loi -> {
@@ -199,7 +231,7 @@ public class AdminMainActivity extends BaseActivity {
     }
 
     //Hàm hiển thị biểu đồ doanh thu theo khoảng thời gian động
-    private void capNhatBieuDo(List<AdminTongDoanhThu> duLieuGoc, Date tuNgay, Date denNgay) {
+    private void capNhatBieuDo(List<AdminMainTongDoanhThu> duLieuGoc, Date tuNgay, Date denNgay) {
         if (duLieuGoc == null)
             return;
 
@@ -237,7 +269,7 @@ public class AdminMainActivity extends BaseActivity {
 
         // Gom dữ liệu thô
         Map<Long, Long> rawData = new HashMap<>();
-        for (AdminTongDoanhThu item : duLieuGoc) {
+        for (AdminMainTongDoanhThu item : duLieuGoc) {
             try {
                 SimpleDateFormat sdfInput = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
                 Date dateItem = sdfInput.parse(item.getThoiGianTao().split(" ")[0]);
@@ -364,7 +396,7 @@ public class AdminMainActivity extends BaseActivity {
             SimpleDateFormat sdfInput = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             SimpleDateFormat sdfOutput = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
-            for (AdminTongDoanhThu item : mangTongDoanhThu) {
+            for (AdminMainTongDoanhThu item : mangTongDoanhThu) {
                 try {
                     Date dateItem = sdfInput.parse(item.getThoiGianTao().split(" ")[0]);
                     if (!dateItem.before(tuNgay) && !dateItem.after(denNgay)) {
@@ -376,7 +408,7 @@ public class AdminMainActivity extends BaseActivity {
             tvAdminBoLocTongDoanhThu.setText("Doanh thu " + sdfOutput.format(tuNgay) + " - " + sdfOutput.format(denNgay));
         } else {
             // Trường hợp Reset: Tính lại tổng doanh thu thực tế
-            for (AdminTongDoanhThu item : mangTongDoanhThu) {
+            for (AdminMainTongDoanhThu item : mangTongDoanhThu) {
                 tongTienHienThi += item.getTongTien();
             }
             tvAdminBoLocTongDoanhThu.setText("Tổng doanh thu");
@@ -421,7 +453,19 @@ public class AdminMainActivity extends BaseActivity {
         btAdminDangXuat.setOnClickListener(v -> {
             Utils.thietLapBottomSheetDialog(AdminMainActivity.this, "Đăng xuất?", "Bạn có chắc muốn thoát không?",
                     "Đăng xuất", () -> {
+                        FirebaseAuth.getInstance().signOut();
                         Paper.book().destroy();
+                        int maNguoiDung = Utils.userNguoiDung_Current.getMaNguoiDung();
+                        compositeDisposable.add(apiCommon.xoaToken(maNguoiDung)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(
+                                        nguoiDungModel -> {
+
+                                        }, throwable -> {
+                                            Toast.makeText(this, "Không thể kết nối đến Server", Toast.LENGTH_SHORT).show();
+                                        }
+                                ));
                         Utils.userNguoiDung_Current = null;
                         Intent intent = new Intent(getApplicationContext(), UserMainActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

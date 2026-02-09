@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "319128282728",
+    "project_id": "capyshop-5d799",
+    "storage_bucket": "capyshop-5d799.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:319128282728:android:588f1f72d544c433d23ddd",
+        "android_client_info": {
+          "package_name": "com.example.capyshop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALTBpoytMN_q89gUi1Ky10Ee11gP9VzLw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
