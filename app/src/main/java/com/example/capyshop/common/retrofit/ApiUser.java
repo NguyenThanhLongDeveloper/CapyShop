@@ -142,4 +142,13 @@ public interface ApiUser {
         Observable<DonHangModel> layDonHang(
                         @Field("manguoidung") int maNguoiDung,
                         @Field("trangthai") String trangThai);
+
+
+        @FormUrlEncoded
+        @POST("user/donhang/user_huy_donhang.php")
+        Observable<DonHangModel> huyDonHang(
+                @Field("manguoidung") int maNguoiDung,
+                @Field("madonhang") int maDonHang,
+                @Field("trangthai") String trangThai);
+
 }

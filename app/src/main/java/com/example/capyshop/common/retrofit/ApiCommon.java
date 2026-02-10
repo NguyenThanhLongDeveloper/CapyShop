@@ -37,6 +37,7 @@ public interface ApiCommon {
     @POST("common/token/common_lay_token.php")
     @FormUrlEncoded
     Observable<NguoiDungModel> layToken(
+            @Field("manguoidung") int maNguoiDung,
             @Field("vaitro") String vaiTro);
 
     @Headers({

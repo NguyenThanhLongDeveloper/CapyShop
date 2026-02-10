@@ -14,11 +14,11 @@ import android.widget.TextView;
 
 import com.example.capyshop.R;
 import com.example.capyshop.common.Interface.BottomSheetDialogClickListener;
+import com.example.capyshop.common.nguoidung.NguoiDung;
 import com.example.capyshop.common.retrofit.ApiCommon;
 import com.example.capyshop.common.retrofit.ApiUser;
 import com.example.capyshop.common.retrofit.RetrofitClient;
 import com.example.capyshop.user.dangnhap.UserDangNhapActivity;
-import com.example.capyshop.common.nguoidung.NguoiDung;
 import com.example.capyshop.user.giohang.UserGioHang;
 import com.example.capyshop.user.giohang.UserGioHangActivity;
 import com.example.capyshop.user.main.UserMainActivity;
@@ -119,6 +119,7 @@ public class Utils {
     public static void xuLySuKienClickMenu(Context context, BottomNavigationView bottomNavigationView) {
         if (bottomNavigationView == null)
             return;
+
 
         // Đánh dấu Tab đang được chọn dựa trên màn hình hiện tại
         if (context instanceof UserMainActivity) {

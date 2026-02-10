@@ -57,26 +57,26 @@ public class AdminQuanLyDonHangAdapter extends RecyclerView.Adapter<AdminQuanLyD
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        DonHang donHang = mangDonHang.get(position);
+        DonHang adminDonHang = mangDonHang.get(position);
 
         // Bind data
-        holder.tvItemDonHangMaDonHang.setText("#DH-" + donHang.getMaDonHang());
-        holder.tvItemDonHangNgayDat.setText("• " + donHang.getThoiGianTao());
-        holder.tvItemDonHangTenNguoiDung.setText(donHang.getTenNguoiDung());
+        holder.tvItemDonHangMaDonHang.setText("Mã đơn hàng : " + adminDonHang.getMaDonHang());
+        holder.tvItemDonHangNgayDat.setText("• " + adminDonHang.getThoiGianTao());
+        holder.tvItemDonHangTenNguoiDung.setText(adminDonHang.getTenNguoiDung());
         Glide.with(context)
-                .load(donHang.getHinhAnhNguoiDung())
+                .load(adminDonHang.getHinhAnhNguoiDung())
                 .placeholder(R.drawable.ic_hinh_anh)
                 .into(holder.civItemDonHangAnhDaiDien);
 
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-        holder.tvItemDonHangTongTien.setText(decimalFormat.format(donHang.getTongTien()) + " đ");
+        holder.tvItemDonHangTongTien.setText(decimalFormat.format(adminDonHang.getTongTien()) + " đ");
 
         // Status Button logic
-        String trangThai = donHang.getTrangThai();
+        String trangThai = adminDonHang.getTrangThai();
         configureStatus(holder, trangThai);
 
         // Nested RecyclerView (Products) logic
-        List<ChiTietDonHang> chiTietList = donHang.getChitietdonhang();
+        List<ChiTietDonHang> chiTietList = adminDonHang.getChitietdonhang();
 
         // Safety check
         if (chiTietList == null) {
@@ -85,7 +85,7 @@ public class AdminQuanLyDonHangAdapter extends RecyclerView.Adapter<AdminQuanLyD
             return;
         }
 
-        int orderId = donHang.getMaDonHang();
+        int orderId = adminDonHang.getMaDonHang();
         boolean isExpanded = expandedOrders.contains(orderId);
         List<ChiTietDonHang> displayList;
 
@@ -112,7 +112,7 @@ public class AdminQuanLyDonHangAdapter extends RecyclerView.Adapter<AdminQuanLyD
         // Confirm Button Click
         holder.btItemDonHangXacNhan.setOnClickListener(v -> {
             if (listener != null)
-                listener.onXacNhanClick(donHang);
+                listener.onXacNhanClick(adminDonHang);
         });
 
         // Expand/Collapse logic
@@ -136,7 +136,7 @@ public class AdminQuanLyDonHangAdapter extends RecyclerView.Adapter<AdminQuanLyD
             public void onClicḳ(View view, int position, boolean isLongClick) {
                 if (!isLongClick) {
                     Intent intent = new Intent(context, AdminChiTietDonHangActivity.class);
-                    intent.putExtra("donhang", donHang);
+                    intent.putExtra("donhang", adminDonHang);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
                 }

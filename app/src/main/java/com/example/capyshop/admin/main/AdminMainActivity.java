@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.example.capyshop.R;
 import com.example.capyshop.admin.danhmuc.AdminQuanLyDanhMucActivity;
 import com.example.capyshop.common.activity.BaseActivity;
+import com.example.capyshop.common.retrofit.AccessToken;
 import com.example.capyshop.common.retrofit.ApiAdmin;
 import com.example.capyshop.common.retrofit.ApiCommon;
 import com.example.capyshop.common.retrofit.RetrofitClient;
@@ -39,6 +40,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.paperdb.Paper;
@@ -80,6 +83,7 @@ public class AdminMainActivity extends BaseActivity {
         // Khởi tạo các thành phần
         anhXa();
         caiDatToolbar();
+        layAccessToken();
         layToken();
         caiDatBieuDoBanDau();
         hienThiThongTinTaiKhoan();
@@ -127,6 +131,25 @@ public class AdminMainActivity extends BaseActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(null);
         }
+    }
+
+    private void layAccessToken() {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                AccessToken accessToken = new AccessToken();
+                String accessTokenSend = accessToken.getAccessToken();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Utils.accessTokenSend = accessTokenSend;
+                        Log.d("accesstoken", accessTokenSend);
+
+                    }
+                });
+            }
+        });
     }
 
     // Lấy token Firebase
@@ -453,8 +476,6 @@ public class AdminMainActivity extends BaseActivity {
         btAdminDangXuat.setOnClickListener(v -> {
             Utils.thietLapBottomSheetDialog(AdminMainActivity.this, "Đăng xuất?", "Bạn có chắc muốn thoát không?",
                     "Đăng xuất", () -> {
-                        FirebaseAuth.getInstance().signOut();
-                        Paper.book().destroy();
                         int maNguoiDung = Utils.userNguoiDung_Current.getMaNguoiDung();
                         compositeDisposable.add(apiCommon.xoaToken(maNguoiDung)
                                 .subscribeOn(Schedulers.io())
@@ -466,7 +487,11 @@ public class AdminMainActivity extends BaseActivity {
                                             Toast.makeText(this, "Không thể kết nối đến Server", Toast.LENGTH_SHORT).show();
                                         }
                                 ));
+
+                        FirebaseAuth.getInstance().signOut();
+                        Paper.book().destroy();
                         Utils.userNguoiDung_Current = null;
+                        Utils.accessTokenSend = null;
                         Intent intent = new Intent(getApplicationContext(), UserMainActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);

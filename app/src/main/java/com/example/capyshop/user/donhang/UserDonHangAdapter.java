@@ -9,11 +9,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capyshop.R;
-
 import com.example.capyshop.common.chitietdonhang.ChiTietDonHang;
 import com.example.capyshop.common.donhang.DonHang;
 import com.example.capyshop.user.chitietdonhang.UserChiTietDonHangAdapter;
@@ -30,10 +30,18 @@ public class UserDonHangAdapter extends RecyclerView.Adapter<UserDonHangAdapter.
     private final Set<String> expandedOrders = new HashSet<>();
     Context context;
     List<DonHang> array;
+    // Khai báo listener
+    private OnHuyDonHangInteractionListener listener;
 
-    public UserDonHangAdapter(Context context, List<DonHang> array) {
+    // Constructor để truyền listener
+    public interface OnHuyDonHangInteractionListener {
+        void onHuyDonHang(DonHang donHang);
+    }
+
+    public UserDonHangAdapter(Context context, List<DonHang> array, OnHuyDonHangInteractionListener listener) {
         this.context = context;
         this.array = array;
+        this.listener = listener;
     }
 
     @NonNull
@@ -45,19 +53,28 @@ public class UserDonHangAdapter extends RecyclerView.Adapter<UserDonHangAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+
         DonHang userDonHang = array.get(position);
         holder.tvItemMaDonHang.setText(" " + userDonHang.getMaDonHang());
         String trangThai = userDonHang.getTrangThai();
         if (trangThai.equals("CHO_XAC_NHAN")) {
             holder.tvItemTrangThaiDonHang.setText("Chờ xác nhận");
-        }else if (trangThai.equals("CHO_LAY_HANG")) {
+        } else if (trangThai.equals("CHO_LAY_HANG")) {
             holder.tvItemTrangThaiDonHang.setText("Chờ lấy hàng");
-        }else if (trangThai.equals("DANG_GIAO_HANG")) {
+            // Ẩn nút huỷ đơn hàng
+            holder.btItemHuyDonHang.setVisibility(View.GONE);
+        } else if (trangThai.equals("DANG_GIAO_HANG")) {
             holder.tvItemTrangThaiDonHang.setText("Đang giao hàng");
-        }else if (trangThai.equals("DA_GIAO_HANG")) {
+            // Ẩn nút huỷ đơn hàng
+            holder.btItemHuyDonHang.setVisibility(View.GONE);
+        } else if (trangThai.equals("DA_GIAO_HANG")) {
             holder.tvItemTrangThaiDonHang.setText("Đã giao hàng");
-        }else if (trangThai.equals("DA_HUY")) {
+            // Ẩn nút huỷ đơn hàng
+            holder.btItemHuyDonHang.setVisibility(View.GONE);
+        } else if (trangThai.equals("DA_HUY")) {
             holder.tvItemTrangThaiDonHang.setText("Đã huỷ");
+            // Ẩn nút huỷ đơn hàng
+            holder.btItemHuyDonHang.setVisibility(View.GONE);
         }
 
         holder.tvItemTongSoLuongSanPhamDonHang.setText("(" + userDonHang.getTongSoLuong() + " sản phẩm) :");
@@ -125,6 +142,11 @@ public class UserDonHangAdapter extends RecyclerView.Adapter<UserDonHangAdapter.
             }
             notifyItemChanged(position);
         });
+
+        holder.btItemHuyDonHang.setOnClickListener(v -> {
+            if (listener != null)
+                listener.onHuyDonHang(userDonHang);
+        });
     }
 
     @Override
@@ -137,7 +159,7 @@ public class UserDonHangAdapter extends RecyclerView.Adapter<UserDonHangAdapter.
         TextView tvItemMaDonHang, tvItemTrangThaiDonHang, tvItemMoRongDonHang,
                 tvItemTongSoLuongSanPhamDonHang, tvItemTongTienSanPhamDonHang;
         RecyclerView rvItemDanhSachSanPhamDonHang;
-
+        AppCompatButton btItemHuyDonHang;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -147,6 +169,8 @@ public class UserDonHangAdapter extends RecyclerView.Adapter<UserDonHangAdapter.
             tvItemMoRongDonHang = itemView.findViewById(R.id.tv_item_mo_rong_don_hang);
             tvItemTongSoLuongSanPhamDonHang = itemView.findViewById(R.id.tv_item_tong_so_luong_san_pham_don_hang);
             tvItemTongTienSanPhamDonHang = itemView.findViewById(R.id.tv_item_tong_tien_san_pham_don_hang);
+            btItemHuyDonHang = itemView.findViewById(R.id.bt_item_huy_don_hang);
+
 
         }
     }

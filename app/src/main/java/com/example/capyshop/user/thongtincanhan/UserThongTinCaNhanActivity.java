@@ -64,17 +64,6 @@ public class UserThongTinCaNhanActivity extends BaseActivity {
     ApiCommon apiCommon;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
 
-    private final androidx.activity.result.ActivityResultLauncher<Intent> imagePickerLauncher = registerForActivityResult(
-            new androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == android.app.Activity.RESULT_OK && result.getData() != null) {
-                    android.net.Uri uri = result.getData().getData();
-                    if (uri != null) {
-                        taiAnhLen(uri);
-                    }
-                }
-            });
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.user_thongtincanhan_activity);
@@ -99,6 +88,7 @@ public class UserThongTinCaNhanActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         hienThiThongTinCaNhan();
+        caiDatIconSoLuongDonHang();
         // Cập nhật lại số lượng sản phẩm trong giỏ hàng khi quay lại màn hình
         Utils.caiDatIconSoLuongGioHang(this, flGioHangThongTinCaNhan, nbGioHangThongTinCaNhan);
         // Xử lý sự kiện click trên các item trong menu
@@ -388,10 +378,6 @@ public class UserThongTinCaNhanActivity extends BaseActivity {
                 public void onClick(View v) {
                     Utils.thietLapBottomSheetDialog(UserThongTinCaNhanActivity.this, "Đăng xuất?",
                             "Bạn có chắc muốn thoát không?", "Đăng xuất", () -> {
-                                // Đăng xuất bằng Firebase
-                                FirebaseAuth.getInstance().signOut();
-                                // Xóa dữ liệu người dùng trong biến toàn cục
-                                Paper.book().destroy();
                                 int maNguoiDung = Utils.userNguoiDung_Current.getMaNguoiDung();
                                 compositeDisposable.add(apiCommon.xoaToken(maNguoiDung)
                                         .subscribeOn(Schedulers.io())
@@ -403,10 +389,13 @@ public class UserThongTinCaNhanActivity extends BaseActivity {
                                                     Toast.makeText(getApplicationContext(), "Không thể kết nối đến Server", Toast.LENGTH_SHORT).show();
                                                 }
                                         ));
+                                // Đăng xuất bằng Firebase
+                                FirebaseAuth.getInstance().signOut();
+                                // Xóa dữ liệu người dùng trong biến toàn cục
+                                Paper.book().destroy();
                                 Utils.userNguoiDung_Current = null;
-
+                                Utils.accessTokenSend = null;
                                 Intent intent = new Intent(getApplicationContext(), UserMainActivity.class);
-
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
                                 finish();
@@ -432,43 +421,48 @@ public class UserThongTinCaNhanActivity extends BaseActivity {
         });
     }
 
-    private void taiAnhLen(android.net.Uri uri) {
-        Utils.taiAnhLenServer(this, uri, "nguoidung", compositeDisposable, new Utils.OnUploadCallback() {
-            @Override
-            public void onThanhCong(String tenFileMoi) {
-                capNhatHinhAnhUser(tenFileMoi);
-            }
+    // Xử lý sự kiện chọn ảnh từ thư viện
+    private final androidx.activity.result.ActivityResultLauncher<Intent> imagePickerLauncher = registerForActivityResult(
+            new androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == android.app.Activity.RESULT_OK && result.getData() != null) {
+                    android.net.Uri uri = result.getData().getData();
+                    if (uri != null) {
+                        Utils.taiAnhLenServer(this, uri, "nguoidung", compositeDisposable, new Utils.OnUploadCallback() {
+                            @Override
+                            public void onThanhCong(String tenFileMoi) {
+                                String fullUrl = Utils.BASE_URL + "common/images/" + tenFileMoi;
+                                int maNguoiDung = Utils.userNguoiDung_Current.getMaNguoiDung();
+                                String hoTen = Utils.userNguoiDung_Current.getHoTenNguoiDung();
+                                String sdt = Utils.userNguoiDung_Current.getSoDienThoai();
+                                String diaChi = Utils.userNguoiDung_Current.getDiaChi();
 
-            @Override
-            public void onThatBai(String message) {
-                Toast.makeText(UserThongTinCaNhanActivity.this, "Lỗi upload: " + message, Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void capNhatHinhAnhUser(String tenFileMoi) {
-        String fullUrl = Utils.BASE_URL + "common/images/" + tenFileMoi;
-        int maNguoiDung = Utils.userNguoiDung_Current.getMaNguoiDung();
-        String hoTen = Utils.userNguoiDung_Current.getHoTenNguoiDung();
-        String sdt = Utils.userNguoiDung_Current.getSoDienThoai();
-        String diaChi = Utils.userNguoiDung_Current.getDiaChi();
-
-        compositeDisposable.add(apiUser.capNhapThongTinCaNhan(maNguoiDung, hoTen, sdt, diaChi, fullUrl)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        model -> {
-                            if (model.isSuccess()) {
-                                Toast.makeText(this, "Cập nhật ảnh đại diện thành công", Toast.LENGTH_SHORT).show();
-                                Utils.userNguoiDung_Current = model.getResult().get(0);
-                                Paper.book().write("user", Utils.userNguoiDung_Current); // Cập nhật local storage
-                                hienThiThongTinCaNhan();
-                            } else {
-                                Toast.makeText(this, model.getMessage(), Toast.LENGTH_SHORT).show();
+                                compositeDisposable.add(apiUser.capNhapThongTinCaNhan(maNguoiDung, hoTen, sdt, diaChi, fullUrl)
+                                        .subscribeOn(Schedulers.io())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .subscribe(
+                                                model -> {
+                                                    if (model.isSuccess()) {
+                                                        Toast.makeText(getApplicationContext(), "Cập nhật ảnh đại diện thành công", Toast.LENGTH_SHORT).show();
+                                                        Utils.userNguoiDung_Current = model.getResult().get(0);
+                                                        Paper.book().write("user", Utils.userNguoiDung_Current); // Cập nhật local storage
+                                                        hienThiThongTinCaNhan();
+                                                    } else {
+                                                        Toast.makeText(getApplicationContext(), model.getMessage(), Toast.LENGTH_SHORT).show();
+                                                    }
+                                                },
+                                                throwable -> Toast
+                                                        .makeText(getApplicationContext(), "Lỗi cập nhật server: " + throwable.getMessage(), Toast.LENGTH_SHORT)
+                                                        .show()));
                             }
-                        },
-                        throwable -> Toast
-                                .makeText(this, "Lỗi cập nhật server: " + throwable.getMessage(), Toast.LENGTH_SHORT)
-                                .show()));
-    }
+
+                            @Override
+                            public void onThatBai(String message) {
+                                Toast.makeText(UserThongTinCaNhanActivity.this, "Lỗi upload: " + message, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }
+            });
+
 }

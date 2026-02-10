@@ -1,9 +1,14 @@
 <?php
 include "../../common/ket_noi.php";
 
+$maNguoiDung   = $_POST['manguoidung'];
 $vaiTro   = $_POST['vaitro'];
 
-$query = "SELECT * FROM `nguoi_dung` WHERE `vaiTro` = '$vaiTro' AND `token` IS NOT NULL";
+if ($maNguoiDung == 0) {
+    $query = "SELECT * FROM `nguoi_dung` WHERE `vaiTro` = '$vaiTro' AND `token` IS NOT NULL";
+} else {
+    $query = "SELECT * FROM `nguoi_dung` WHERE `maNguoiDung` = '$maNguoiDung' AND `vaiTro` = '$vaiTro' AND `token` IS NOT NULL";
+}
 
 $data = mysqli_query($conn, $query);
 

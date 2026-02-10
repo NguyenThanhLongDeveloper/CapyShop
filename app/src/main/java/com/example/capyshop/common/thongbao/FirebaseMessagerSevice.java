@@ -11,9 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
 import com.example.capyshop.R;
-import com.example.capyshop.admin.main.AdminMainActivity;
+import com.example.capyshop.admin.donhang.AdminQuanLyDonHangActivity;
 import com.example.capyshop.common.utils.Utils;
-import com.example.capyshop.user.main.UserMainActivity;
+import com.example.capyshop.user.thongtincanhan.UserThongTinCaNhanActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -31,9 +31,9 @@ public class FirebaseMessagerSevice extends FirebaseMessagingService {
         if (Utils.userNguoiDung_Current == null) {
             return;
         }else if ("ADMIN".equalsIgnoreCase(Utils.userNguoiDung_Current.getVaiTro())) {
-            intent = new Intent(this, AdminMainActivity.class);
+            intent = new Intent(this, AdminQuanLyDonHangActivity.class);
         } else {
-            intent = new Intent(this, UserMainActivity.class);
+            intent = new Intent(this, UserThongTinCaNhanActivity.class);
         }
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         //  Tạo PendingIntent

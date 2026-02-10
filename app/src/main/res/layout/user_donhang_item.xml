@@ -30,8 +30,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Mã đơn hàng: "
-                android:textColor="@android:color/black"
-                android:textSize="14sp"
+                android:textColor="@color/ButtonOnBackgroud"
+                android:textSize="16sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,13 +42,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:textColor="@android:color/black"
-                android:textSize="14sp"
+                android:textColor="@color/ButtonOnBackgroud"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/tv_item_trang_thai_don_hang"
                 app:layout_constraintStart_toEndOf="@+id/tv_label_ma_don_hang"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="ABC-123456" />
+                tools:text="123456" />
 
             <!-- Trạng thái Đơn hàng -->
             <TextView
@@ -128,6 +129,28 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:text="347.600₫" />
 
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/bt_item_huy_don_hang"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:background="@drawable/button_on_backgroud"
+                android:paddingHorizontal="20dp"
+                android:text="Huỷ đơn hàng"
+                android:gravity="center"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

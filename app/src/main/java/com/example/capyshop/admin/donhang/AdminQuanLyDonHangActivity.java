@@ -1,6 +1,8 @@
 package com.example.capyshop.admin.donhang;
 
+
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -13,7 +15,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.capyshop.R;
 import com.example.capyshop.common.activity.BaseActivity;
 import com.example.capyshop.common.retrofit.ApiAdmin;
+import com.example.capyshop.common.retrofit.ApiCommon;
+import com.example.capyshop.common.retrofit.Authorization;
 import com.example.capyshop.common.retrofit.RetrofitClient;
+import com.example.capyshop.common.retrofit.RetrofitClientThongBao;
+import com.example.capyshop.common.thongbao.GuiThongBao;
+import com.example.capyshop.common.thongbao.Message;
+import com.example.capyshop.common.thongbao.Notification;
 import com.example.capyshop.common.utils.Utils;
 import com.google.android.material.tabs.TabLayout;
 
@@ -24,6 +32,7 @@ import java.util.List;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+import okhttp3.OkHttpClient;
 
 public class AdminQuanLyDonHangActivity extends BaseActivity {
 
@@ -34,9 +43,11 @@ public class AdminQuanLyDonHangActivity extends BaseActivity {
     TextView tvThongBaoTrong;
 
     ApiAdmin apiAdmin;
+    ApiCommon apiCommon;
+    OkHttpClient okHttpClient;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     List<DonHang> mangDonHang = new ArrayList<>();
-    AdminQuanLyDonHangAdapter adapter;
+    AdminQuanLyDonHangAdapter adminQuanLyDonHangAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +67,13 @@ public class AdminQuanLyDonHangActivity extends BaseActivity {
         tvThongBaoTrong = findViewById(R.id.tv_admin_quan_ly_don_hang_thong_bao);
 
         apiAdmin = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiAdmin.class);
+        apiCommon = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiCommon.class);
 
         rvDonHang.setHasFixedSize(true);
         rvDonHang.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new AdminQuanLyDonHangAdapter(getApplicationContext(), mangDonHang, this::xacNhanDonHang);
-        rvDonHang.setAdapter(adapter);
+        adminQuanLyDonHangAdapter = new AdminQuanLyDonHangAdapter(getApplicationContext(), mangDonHang, this::xacNhanDonHang);
+        rvDonHang.setAdapter(adminQuanLyDonHangAdapter);
     }
 
     private void caiDatControl() {
@@ -106,12 +118,12 @@ public class AdminQuanLyDonHangActivity extends BaseActivity {
         });
     }
 
-    private void layDanhSachDonHang(String status) {
+    private void layDanhSachDonHang(String trangThai) {
         pbDonHang.setVisibility(View.VISIBLE);
         rvDonHang.setVisibility(View.GONE);
         tvThongBaoTrong.setVisibility(View.GONE);
 
-        compositeDisposable.add(apiAdmin.layDanhSachDonHang(status)
+        compositeDisposable.add(apiAdmin.layDanhSachDonHang(trangThai)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -120,11 +132,11 @@ public class AdminQuanLyDonHangActivity extends BaseActivity {
                             if (model.isSuccess() && model.getResult() != null && !model.getResult().isEmpty()) {
                                 mangDonHang.clear();
                                 mangDonHang.addAll(model.getResult());
-                                adapter.notifyDataSetChanged();
+                                adminQuanLyDonHangAdapter.notifyDataSetChanged();
                                 rvDonHang.setVisibility(View.VISIBLE);
                             } else {
                                 mangDonHang.clear();
-                                adapter.notifyDataSetChanged();
+                                adminQuanLyDonHangAdapter.notifyDataSetChanged();
                                 tvThongBaoTrong.setVisibility(View.VISIBLE);
                                 tvThongBaoTrong.setText("Không có đơn hàng nào");
                             }
@@ -136,38 +148,37 @@ public class AdminQuanLyDonHangActivity extends BaseActivity {
     }
 
     private void xacNhanDonHang(DonHang donHang) {
-        String currentStatus = donHang.getTrangThai();
-        String nextStatus = "";
+        String trangThai = donHang.getTrangThai();
+        String thayDoiTrangThai = "";
 
-        switch (currentStatus) {
+        switch (trangThai) {
             case "CHO_XAC_NHAN":
-                nextStatus = "CHO_LAY_HANG";
+                thayDoiTrangThai = "CHO_LAY_HANG";
                 break;
             case "CHO_LAY_HANG":
-                nextStatus = "DANG_GIAO_HANG";
+                thayDoiTrangThai = "DANG_GIAO_HANG";
                 break;
             case "DANG_GIAO_HANG":
-                nextStatus = "DA_GIAO_HANG";
+                thayDoiTrangThai = "DA_GIAO_HANG";
                 break;
             default:
                 return; // No action for max status
         }
 
-        final String finalNextStatus = nextStatus; // For lambda
-
-        compositeDisposable.add(apiAdmin.updateTrangThaiDonHang(donHang.getMaDonHang(), nextStatus)
+        final String finalNextStatus = thayDoiTrangThai; // For lambda
+        final String trangThaiMoi = thayDoiTrangThai;
+        int maNguoiDung = donHang.getMaNguoiDung();
+        int maDonHang = donHang.getMaDonHang();
+        compositeDisposable.add(apiAdmin.updateTrangThaiDonHang(donHang.getMaDonHang(), trangThaiMoi)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         model -> {
                             if (model.isSuccess()) {
                                 Toast.makeText(this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
-                                // Refresh current list (which removes the item since it changed status)
-                                // Or we could just update the item if we weren't filtering strictly
-
-                                // Since logic is tab-based filtering, item should disappear
+                                guiThongBaoThayDoiTrangThaiThanhCong(trangThaiMoi, maNguoiDung, maDonHang);
                                 mangDonHang.remove(donHang);
-                                adapter.notifyDataSetChanged();
+                                adminQuanLyDonHangAdapter.notifyDataSetChanged();
 
                                 if (mangDonHang.isEmpty()) {
                                     tvThongBaoTrong.setVisibility(View.VISIBLE);
@@ -177,6 +188,57 @@ public class AdminQuanLyDonHangActivity extends BaseActivity {
                             }
                         },
                         throwable -> Toast.makeText(this, "Lỗi kết nối", Toast.LENGTH_SHORT).show()));
+    }
+
+    private void guiThongBaoThayDoiTrangThaiThanhCong(String trangThaiMoi, int maNguoiDung, int maDonHang) {
+        if (Utils.accessTokenSend != null) {
+            okHttpClient = new OkHttpClient.Builder()
+                    .addInterceptor(new Authorization(Utils.accessTokenSend))
+                    .build();
+        }
+        // lấy token người dùng
+        compositeDisposable.add(apiCommon.layToken(maNguoiDung,"NGUOI_MUA")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        nguoiDungModel -> {
+                            if (nguoiDungModel.isSuccess()) {
+                                // lấy token nguười dùng
+                                String token = nguoiDungModel.getResult().get(0).getToken();
+                                String body = "";
+                                switch (trangThaiMoi) {
+                                    case "CHO_LAY_HANG":
+                                        body = "Đơn hàng của đã được xác nhận, vui lòng kiểm tra";
+                                        break;
+                                    case "DANG_GIAO_HANG":
+                                        body = "Đơn hàng của trên đường giao, vui lòng kiểm tra";
+                                        break;
+                                    case "DA_GIAO_HANG":
+                                        body = "Đơn hàng của đã được giao thành công, vui lòng kiểm tra";
+                                        break;
+                                    default:
+                                        return; // No action for max status
+                                }
+
+                                Notification notification = new Notification("Đơn hàng " + maDonHang, body);
+                                Message message = new Message(token, notification);
+                                GuiThongBao guiThongBao = new GuiThongBao(message);
+                                ApiCommon apiCommon = RetrofitClientThongBao.getInstance(okHttpClient).create(ApiCommon.class);
+                                compositeDisposable.add(apiCommon.guiNhanThongBao(guiThongBao)
+                                        .subscribeOn(Schedulers.io())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .subscribe(
+                                                nhanThongBao -> {
+
+                                                }, throwable -> {
+                                                    Log.d("log", throwable.getMessage());
+                                                }
+                                        ));
+                            }
+                        }, throwable -> {
+                            Log.d("logg", throwable.getMessage());
+                        }
+                ));
     }
 
     @Override

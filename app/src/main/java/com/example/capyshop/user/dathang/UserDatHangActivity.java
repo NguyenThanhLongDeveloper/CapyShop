@@ -367,7 +367,7 @@ public class UserDatHangActivity extends BaseActivity {
                     .build();
         }
         // lấy token quản trị viên
-        compositeDisposable.add(apiCommon.layToken("ADMIN")
+        compositeDisposable.add(apiCommon.layToken(0,"ADMIN")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
