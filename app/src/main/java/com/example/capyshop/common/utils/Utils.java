@@ -41,7 +41,7 @@ import okhttp3.RequestBody;
 //Utils: Lớp tiện ích chứa các hằng số, biến static toàn cục và các phương thức dùng chung.
 public class Utils {
     // URL cơ sở để kết nối API.
-    public static final String BASE_URL = "http://192.168.0.102/capyshop_api/";
+    public static final String BASE_URL = "http://192.168.0.103/capyshop_api/";
 
     // Danh sách các sản phẩm hiện có trong giỏ
     public static List<UserGioHang> mangGioHang;

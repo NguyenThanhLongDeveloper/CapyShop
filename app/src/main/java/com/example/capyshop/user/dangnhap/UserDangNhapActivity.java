@@ -3,6 +3,7 @@ package com.example.capyshop.user.dangnhap;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -166,6 +167,7 @@ public class UserDangNhapActivity extends BaseActivity {
                         // Xử lý kết quả trả về từ server
                         nguoiDungModel -> {
                             if (nguoiDungModel.isSuccess()) {
+
                                 // Đăng nhập thành công: Lưu thông tin người dùng và chuyển màn hình chính
                                 Utils.userNguoiDung_Current = nguoiDungModel.getResult().get(0);
                                 // Lưu thông tin người dùng vào PaperDB
@@ -191,6 +193,8 @@ public class UserDangNhapActivity extends BaseActivity {
 
                         },
                         throwable -> {
+
+                            Log.d("dangnhap", throwable.getMessage());
                             // Xử lý lỗi kết nối mạng hoặc lỗi hệ thống
                             Toast.makeText(getApplicationContext(), throwable.getMessage(),
                                     Toast.LENGTH_SHORT).show();

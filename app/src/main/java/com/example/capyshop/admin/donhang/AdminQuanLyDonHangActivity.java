@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.capyshop.R;
 import com.example.capyshop.common.activity.BaseActivity;
+import com.example.capyshop.common.donhang.DonHang;
 import com.example.capyshop.common.retrofit.ApiAdmin;
 import com.example.capyshop.common.retrofit.ApiCommon;
 import com.example.capyshop.common.retrofit.Authorization;
@@ -25,7 +26,6 @@ import com.example.capyshop.common.thongbao.Notification;
 import com.example.capyshop.common.utils.Utils;
 import com.google.android.material.tabs.TabLayout;
 
-import com.example.capyshop.common.donhang.DonHang;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +48,7 @@ public class AdminQuanLyDonHangActivity extends BaseActivity {
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     List<DonHang> mangDonHang = new ArrayList<>();
     AdminQuanLyDonHangAdapter adminQuanLyDonHangAdapter;
+    String trangThai;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +56,14 @@ public class AdminQuanLyDonHangActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         anhXa();
-        caiDatControl();
-        layDanhSachDonHang("CHO_XAC_NHAN"); // Load initial state
+        caiDatToolbar();
+        xuLySuKienClickXemDonHang();
+        if (trangThai != null) {
+            hienThiDanhSachXemDonHang(trangThai);
+
+        } else {
+            hienThiDanhSachXemDonHang("CHO_XAC_NHAN");
+        }
     }
 
     private void anhXa() {
@@ -74,9 +81,12 @@ public class AdminQuanLyDonHangActivity extends BaseActivity {
 
         adminQuanLyDonHangAdapter = new AdminQuanLyDonHangAdapter(getApplicationContext(), mangDonHang, this::xacNhanDonHang);
         rvDonHang.setAdapter(adminQuanLyDonHangAdapter);
+
+
+        trangThai = getIntent().getStringExtra("trangthai");
     }
 
-    private void caiDatControl() {
+    private void caiDatToolbar() {
         setSupportActionBar(tbQuanLyDonHang);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -84,28 +94,32 @@ public class AdminQuanLyDonHangActivity extends BaseActivity {
         }
         tbQuanLyDonHang.setNavigationOnClickListener(v -> finish());
 
+
+    }
+
+    private void xuLySuKienClickXemDonHang() {
         tlThanhDieuHuong.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                String status = "";
+                String trangThai = "";
                 switch (tab.getPosition()) {
                     case 0:
-                        status = "CHO_XAC_NHAN";
+                        trangThai = "CHO_XAC_NHAN";
                         break;
                     case 1:
-                        status = "CHO_LAY_HANG";
+                        trangThai = "CHO_LAY_HANG";
                         break;
                     case 2:
-                        status = "DANG_GIAO_HANG";
+                        trangThai = "DANG_GIAO_HANG";
                         break;
                     case 3:
-                        status = "DA_GIAO_HANG";
+                        trangThai = "DA_GIAO_HANG";
                         break;
                     case 4:
-                        status = "DA_HUY";
+                        trangThai = "DA_HUY";
                         break;
                 }
-                layDanhSachDonHang(status);
+                hienThiDanhSachXemDonHang(trangThai);
             }
 
             @Override
@@ -118,22 +132,36 @@ public class AdminQuanLyDonHangActivity extends BaseActivity {
         });
     }
 
-    private void layDanhSachDonHang(String trangThai) {
+    private void hienThiDanhSachXemDonHang(String trangThai) {
         pbDonHang.setVisibility(View.VISIBLE);
         rvDonHang.setVisibility(View.GONE);
         tvThongBaoTrong.setVisibility(View.GONE);
+        if (trangThai != null) {
+            int viTri = 0;
+            switch (trangThai) {
+                case "CHO_XAC_NHAN": viTri = 0; break;
+                case "CHO_LAY_HANG": viTri = 1; break;
+                case "DANG_GIAO_HANG": viTri = 2; break;
+                case "DA_GIAO_HANG": viTri = 3; break;
+                case "DA_HUY": viTri = 4; break;
+            }
+            tlThanhDieuHuong.getTabAt(viTri).select();
+        }
+        // Thực hiện lệnh gọi API để lấy danh sách đơn hàng
 
         compositeDisposable.add(apiAdmin.layDanhSachDonHang(trangThai)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        model -> {
+                        donHangModel -> {
                             pbDonHang.setVisibility(View.GONE);
-                            if (model.isSuccess() && model.getResult() != null && !model.getResult().isEmpty()) {
+                            if (donHangModel.isSuccess() && donHangModel.getResult() != null && !donHangModel.getResult().isEmpty()) {
                                 mangDonHang.clear();
-                                mangDonHang.addAll(model.getResult());
+                                mangDonHang.addAll(donHangModel.getResult());
                                 adminQuanLyDonHangAdapter.notifyDataSetChanged();
                                 rvDonHang.setVisibility(View.VISIBLE);
+
+
                             } else {
                                 mangDonHang.clear();
                                 adminQuanLyDonHangAdapter.notifyDataSetChanged();

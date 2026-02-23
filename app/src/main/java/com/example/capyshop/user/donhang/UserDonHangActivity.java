@@ -97,25 +97,21 @@ public class UserDonHangActivity extends BaseActivity {
                 switch (tab.getPosition()) {
                     case 0:
                         trangThai = "CHO_XAC_NHAN";
-                        hienThiDanhSachDonHang(trangThai);
                         break;
                     case 1:
                         trangThai = "CHO_LAY_HANG";
-                        hienThiDanhSachDonHang(trangThai);
                         break;
                     case 2:
                         trangThai = "DANG_GIAO_HANG";
-                        hienThiDanhSachDonHang(trangThai);
                         break;
                     case 3:
                         trangThai = "DA_GIAO_HANG";
-                        hienThiDanhSachDonHang(trangThai);
                         break;
                     case 4:
                         trangThai = "DA_HUY";
-                        hienThiDanhSachDonHang(trangThai);
                         break;
                 }
+                hienThiDanhSachDonHang(trangThai);
             }
 
             @Override

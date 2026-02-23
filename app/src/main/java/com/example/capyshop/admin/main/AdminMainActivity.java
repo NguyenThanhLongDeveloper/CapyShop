@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,12 +18,14 @@ import androidx.core.content.ContextCompat;
 import com.bumptech.glide.Glide;
 import com.example.capyshop.R;
 import com.example.capyshop.admin.danhmuc.AdminQuanLyDanhMucActivity;
+import com.example.capyshop.admin.donhang.AdminQuanLyDonHangActivity;
 import com.example.capyshop.common.activity.BaseActivity;
 import com.example.capyshop.common.retrofit.AccessToken;
 import com.example.capyshop.common.retrofit.ApiAdmin;
 import com.example.capyshop.common.retrofit.ApiCommon;
 import com.example.capyshop.common.retrofit.RetrofitClient;
 import com.example.capyshop.common.utils.Utils;
+import com.example.capyshop.user.donhang.UserDonHangActivity;
 import com.example.capyshop.user.main.UserMainActivity;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.formatter.ValueFormatter;
@@ -59,7 +62,7 @@ public class AdminMainActivity extends BaseActivity {
     ImageView ivAdminThanhCongCuThongBao;
 
     TextView tvAdminTongDoanhThu, tvAdminBoLocTongDoanhThu;
-    CardView cvAdminTrangChuDonHangChoXacNhan, cvAdminTrangChuDonHangChoGiaoHang;
+    CardView cvAdminDonHangChoXacNhan, cvAdminDonHangChoLayHang;
     TextView tvAdminDonHangChoXacNhan, tvAdminDonHangChoLayHang;
     LinearLayout llAdminDanhMuc, llAdminSanPham, llAdminDonHang, llAdminNguoiDung,
             llAdminDonViVanChuyen, llAdminQuangCao, llAdminPhuongThucThanhToan;
@@ -113,8 +116,8 @@ public class AdminMainActivity extends BaseActivity {
         civAdminThanhCongCuHinhAnhChinh = findViewById(R.id.civ_admin_thanh_cong_cu_hinh_anh_chinh);
         tvAdminThanhCongCuTen = findViewById(R.id.tv_admin_thanh_cong_cu_ten);
         ivAdminThanhCongCuThongBao = findViewById(R.id.iv_admin_thanh_cong_cu_thong_bao);
-        cvAdminTrangChuDonHangChoXacNhan = findViewById(R.id.cv_admin_don_hang_cho_xac_nhan);
-        cvAdminTrangChuDonHangChoGiaoHang = findViewById(R.id.cv_admin_don_hang_cho_giao_hang);
+        cvAdminDonHangChoXacNhan = findViewById(R.id.cv_admin_don_hang_cho_xac_nhan);
+        cvAdminDonHangChoLayHang = findViewById(R.id.cv_admin_don_hang_cho_lay_hang);
         tvAdminDonHangChoXacNhan = findViewById(R.id.tv_admin_don_hang_cho_xac_nhan);
         tvAdminDonHangChoLayHang = findViewById(R.id.tv_admin_don_hang_cho_lay_hang);
         tvAdminBoLocTongDoanhThu = findViewById(R.id.tv_admin_bo_loc_tong_doanh_thu);
@@ -446,7 +449,8 @@ public class AdminMainActivity extends BaseActivity {
      */
     private void xuLySuKienClick() {
         ivAdminThanhCongCuThongBao.setOnClickListener(v -> Toast.makeText(this, "Thông báo", Toast.LENGTH_SHORT).show());
-        llAdminDanhMuc.setOnClickListener(v -> startActivity(new Intent(this, AdminQuanLyDanhMucActivity.class)));
+        llAdminDanhMuc.setOnClickListener(v -> startActivity(
+                new Intent(this, AdminQuanLyDanhMucActivity.class)));
         llAdminQuangCao.setOnClickListener(v -> startActivity(
                 new Intent(this, com.example.capyshop.admin.quangcao.AdminQuanLyQuangCaoActivity.class)));
         llAdminDonViVanChuyen.setOnClickListener(v -> startActivity(
@@ -461,11 +465,29 @@ public class AdminMainActivity extends BaseActivity {
         llAdminPhuongThucThanhToan.setOnClickListener(v -> startActivity(
                 new Intent(this,
                         com.example.capyshop.admin.phuongthucthanhtoan.AdminQuanLyPhuongThucThanhToanActivity.class)));
+        View.OnClickListener trangThaiClickListenner = new View.OnClickListener() {
 
-        cvAdminTrangChuDonHangChoXacNhan
-                .setOnClickListener(v -> Toast.makeText(this, "Chờ xác nhận", Toast.LENGTH_SHORT).show());
-        cvAdminTrangChuDonHangChoGiaoHang
-                .setOnClickListener(v -> Toast.makeText(this, "Chờ giao hàng", Toast.LENGTH_SHORT).show());
+            @Override
+            public void onClick(View v) {
+
+                String trangThai = "";
+                int id = v.getId();
+                if (id == R.id.cv_admin_don_hang_cho_xac_nhan) {
+                    trangThai = "CHO_XAC_NHAN";
+                } else if (id == R.id.cv_admin_don_hang_cho_lay_hang) {
+                    trangThai = "CHO_LAY_HANG";
+                }
+                // Nếu trangThai không rỗng, chuyển sang màn hình DonHangActivity
+                if (!trangThai.isEmpty()) {
+                    Intent intent = new Intent(getApplicationContext(), AdminQuanLyDonHangActivity.class);
+                    intent.putExtra("trangthai", trangThai);
+                    startActivity(intent);
+                }
+
+            }
+        };
+        cvAdminDonHangChoXacNhan.setOnClickListener(trangThaiClickListenner);
+        cvAdminDonHangChoLayHang.setOnClickListener(trangThaiClickListenner);
 
         // Mở bộ lọc mới
         ivAdminBoLocTongDoanhThuChinh.setOnClickListener(v -> {
