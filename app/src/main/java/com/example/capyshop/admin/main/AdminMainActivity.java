@@ -59,7 +59,8 @@ public class AdminMainActivity extends BaseActivity {
     Toolbar tbAdminTrangChu;
     CircleImageView civAdminThanhCongCuHinhAnhChinh;
     TextView tvAdminThanhCongCuTen;
-    ImageView ivAdminThanhCongCuThongBao;
+    ImageView ivAdminThanhCongCuThongBao, ivAdminThanhCongCuTinNhan;
+
 
     TextView tvAdminTongDoanhThu, tvAdminBoLocTongDoanhThu;
     CardView cvAdminDonHangChoXacNhan, cvAdminDonHangChoLayHang;
@@ -116,6 +117,7 @@ public class AdminMainActivity extends BaseActivity {
         civAdminThanhCongCuHinhAnhChinh = findViewById(R.id.civ_admin_thanh_cong_cu_hinh_anh_chinh);
         tvAdminThanhCongCuTen = findViewById(R.id.tv_admin_thanh_cong_cu_ten);
         ivAdminThanhCongCuThongBao = findViewById(R.id.iv_admin_thanh_cong_cu_thong_bao);
+        ivAdminThanhCongCuTinNhan = findViewById(R.id.iv_admin_thanh_cong_cu_tin_nhan);
         cvAdminDonHangChoXacNhan = findViewById(R.id.cv_admin_don_hang_cho_xac_nhan);
         cvAdminDonHangChoLayHang = findViewById(R.id.cv_admin_don_hang_cho_lay_hang);
         tvAdminDonHangChoXacNhan = findViewById(R.id.tv_admin_don_hang_cho_xac_nhan);

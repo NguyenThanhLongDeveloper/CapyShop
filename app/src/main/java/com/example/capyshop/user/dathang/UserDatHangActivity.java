@@ -1,5 +1,6 @@
 package com.example.capyshop.user.dathang;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -25,9 +26,7 @@ import com.example.capyshop.common.thongbao.GuiThongBao;
 import com.example.capyshop.common.thongbao.Message;
 import com.example.capyshop.common.thongbao.Notification;
 import com.example.capyshop.common.utils.Utils;
-import com.example.capyshop.user.donhang.UserDonHangActivity;
 import com.example.capyshop.user.giohang.UserGioHang;
-import com.example.capyshop.user.main.UserMainActivity;
 import com.example.capyshop.user.thongtincanhan.UserThongTinCaNhanBottomSheetCaiDatTaiKhoan;
 import com.google.gson.Gson;
 
@@ -322,31 +321,12 @@ public class UserDatHangActivity extends BaseActivity {
 
                                             // 3. Giải phóng danh sách mua hàng tạm thời
                                             Utils.mangMuaHang.clear();
-
-                                            // 4. Hien thi BottomSheet Thanh Cong
-                                            UserDatHangThanhCongBottomSheet bottomSheet = new UserDatHangThanhCongBottomSheet(new UserDatHangThanhCongBottomSheet.OnActionListener() {
-                                                @Override
-                                                public void onTiepTucMuaSam() {
-                                                    Intent intent = new Intent(getApplicationContext(), UserMainActivity.class);
-                                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                    startActivity(intent);
-                                                    finish();
-                                                }
-
-                                                @Override
-                                                public void onXemChiTietDonHang() {
-                                                    // Chuyen den man hinh lich su don hang
-                                                    String trangThai = "CHO_XAC_NHAN";
-                                                    Intent intent = new Intent(getApplicationContext(), UserDonHangActivity.class);
-                                                    intent.putExtra("trangthai", trangThai);
-                                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                    startActivity(intent);
-                                                    finish();
-
-                                                }
-                                            });
-                                            bottomSheet.setCancelable(false);
-                                            bottomSheet.show(getSupportFragmentManager(), "OrderSuccessBottomSheet");
+                                            Utils.mangGioHang.clear();
+                                            // 4. Chuyển sang màn hình thành công
+                                            Intent intent = new Intent(getApplicationContext(), UserDatHangThanhCongActivity.class);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            startActivity(intent);
+                                            finish();
                                         } else {
                                             Toast.makeText(getApplicationContext(), donHangModel.getMessage(), Toast.LENGTH_SHORT).show();
                                         }

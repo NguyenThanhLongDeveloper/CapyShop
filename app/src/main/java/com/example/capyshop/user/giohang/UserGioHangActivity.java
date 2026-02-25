@@ -56,9 +56,15 @@ public class UserGioHangActivity extends BaseActivity {
 
         anhXa(); // Ánh xạ UI
         caiDatToolbar(); // Cấu hình Toolbar và RecyclerView
+        hienThiGioHang(); // Gọi API lấy dữ liệu giỏ hàng
         xuLySuKienMuaHang(); // Xử lý sự kiện đặt hàng
         xuLyCheckBoxChonTatCa(); //
+    }
+
+    @Override
+    protected void onResume() {
         hienThiGioHang(); // Gọi API lấy dữ liệu giỏ hàng
+        super.onResume();
     }
 
     // Ánh xạ các View từ file XML
@@ -160,6 +166,7 @@ public class UserGioHangActivity extends BaseActivity {
                     Intent intent = new Intent(getApplicationContext(), UserDatHangActivity.class);
                     intent.putExtra("tongtien", tongTien);
                     startActivity(intent);
+
                 } else {
                     Toast.makeText(getApplicationContext(), "Vui lòng chọn sản phẩm để mua", Toast.LENGTH_SHORT).show();
                 }

@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <!-- cho phép truy cập internet -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- cho phép truy cập internet -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -24,6 +23,12 @@
         android:theme="@style/Theme.CapyShop"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".user.dathang.UserDatHangThanhCongActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.tinnhan.TinNhanActivity"
+            android:exported="false" />
         <activity
             android:name=".admin.sanpham.AdminQuanLySanPhamActivity"
             android:exported="false" />
@@ -60,12 +65,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".common.thongbao.FirebaseMessagerSevice"
+
+        <service
+            android:name=".common.thongbao.FirebaseMessagerSevice"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
         <activity
             android:name=".admin.main.AdminMainActivity"
             android:exported="false"

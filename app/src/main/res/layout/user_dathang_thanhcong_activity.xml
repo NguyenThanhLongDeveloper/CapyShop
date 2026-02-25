@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:background="@color/LightBackgroud"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    tools:context=".user.dathang.UserDatHangThanhCongActivity">
+
+    <!-- Phần nội dung chính nằm giữa màn hình để tạo sự cân bằng -->
+    <LinearLayout
+        android:id="@+id/layout_center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/layout_buttons"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed">
+
+        <!-- Success Icon với hiệu ứng vòng tròn -->
+        <ImageView
+            android:id="@+id/iv_hinh_anh_dat_hang_thanh_cong"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:background="@drawable/icon_background"
+            android:padding="25dp"
+            android:src="@drawable/ic_dang_giao_hang"/>
+
+        <TextView
+            android:id="@+id/tv_tieu_de_thong_bao_thanh_cong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Đặt hàng thành công!"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_noi_dung_thong_bao_thanh_cong"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:lineSpacingExtra="4dp"
+            android:paddingHorizontal="20dp"
+            android:text="Cảm ơn bạn đã mua sắm tại CapyShop.\nĐơn hàng của bạn đã được tiếp nhận và đang được xử lý nhanh nhất có thể."
+            android:textColor="#666666"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <!-- Các nút bấm cố định ở phía dưới (Dễ chạm bằng ngón cái) -->
+    <LinearLayout
+        android:id="@+id/layout_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/bt_tiep_tuc_mua_sam"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@drawable/button_on_backgroud"
+            android:text="Tiếp tục mua sắm"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/bt_xem_chi_tiet_don_hang"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/button_off_backgroud"
+            android:text="Xem chi tiết đơn hàng"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
