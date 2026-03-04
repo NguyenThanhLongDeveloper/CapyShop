@@ -5,12 +5,38 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/LightBackgroud"
     tools:context=".user.lienhe.UserLienHeActivity">
     <TextView
         android:text="liên hệ"
         android:textSize="22sp"
         android:textStyle="bold"
+        android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_lien_he"
+        android:layout_width="0dp"
+        android:layout_height="68dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:cardCornerRadius="32dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bn_menu_lien_he"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            app:labelVisibilityMode="labeled"
+            app:menu="@menu/user_bottom_navigation_menu"
+            app:itemIconTint="@color/bottom_navigation_color"
+            app:itemTextColor="@color/bottom_navigation_color" />
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

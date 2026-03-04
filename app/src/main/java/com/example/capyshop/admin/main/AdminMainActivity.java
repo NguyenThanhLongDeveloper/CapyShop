@@ -19,13 +19,13 @@ import com.bumptech.glide.Glide;
 import com.example.capyshop.R;
 import com.example.capyshop.admin.danhmuc.AdminQuanLyDanhMucActivity;
 import com.example.capyshop.admin.donhang.AdminQuanLyDonHangActivity;
+import com.example.capyshop.admin.tinnhan.AdminTinNhanDanhSachActivity;
 import com.example.capyshop.common.activity.BaseActivity;
 import com.example.capyshop.common.retrofit.AccessToken;
 import com.example.capyshop.common.retrofit.ApiAdmin;
 import com.example.capyshop.common.retrofit.ApiCommon;
 import com.example.capyshop.common.retrofit.RetrofitClient;
 import com.example.capyshop.common.utils.Utils;
-import com.example.capyshop.user.donhang.UserDonHangActivity;
 import com.example.capyshop.user.main.UserMainActivity;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.formatter.ValueFormatter;
@@ -451,6 +451,8 @@ public class AdminMainActivity extends BaseActivity {
      */
     private void xuLySuKienClick() {
         ivAdminThanhCongCuThongBao.setOnClickListener(v -> Toast.makeText(this, "Thông báo", Toast.LENGTH_SHORT).show());
+        ivAdminThanhCongCuTinNhan.setOnClickListener(v -> startActivity(
+                new Intent(this, AdminTinNhanDanhSachActivity.class)));
         llAdminDanhMuc.setOnClickListener(v -> startActivity(
                 new Intent(this, AdminQuanLyDanhMucActivity.class)));
         llAdminQuangCao.setOnClickListener(v -> startActivity(
@@ -515,6 +517,7 @@ public class AdminMainActivity extends BaseActivity {
                         FirebaseAuth.getInstance().signOut();
                         Paper.book().destroy();
                         Utils.userNguoiDung_Current = null;
+                        Utils.maNguoiNhanTinNhan = null;
                         Utils.accessTokenSend = null;
                         Intent intent = new Intent(getApplicationContext(), UserMainActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

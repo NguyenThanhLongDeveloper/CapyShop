@@ -86,7 +86,7 @@ public class UserMainActivity extends BaseActivity {
             hienThiQuangCao(); // Hiển thị quảng cáo
             hienThiDanhMuc(); // Lấy danh sách danh mục
             hienThiSanPhamMoi(); // Lấy danh sách sản phẩm mới
-            xuLySuKienClick(); // Xử lý sự kiện click trên menu
+            xuLySuKienClickTimKiem(); // Xử lý sự kiện click trên menu
         } else {
             Toast.makeText(getApplicationContext(), "Không có kết nối internet", Toast.LENGTH_SHORT).show();
         }
@@ -120,7 +120,7 @@ public class UserMainActivity extends BaseActivity {
         notificationBadgeGioHangMain = findViewById(R.id.nb_gio_hang_main);
         cardViewTimKiemToolbarMain = findViewById(R.id.cv_tim_kiem_toolbar_main);
         cardViewTimKiemMain = findViewById(R.id.cv_tim_kiem_main);
-        bottomNavigationViewMenuMain = findViewById(R.id.bn_menu_main);
+        bottomNavigationViewMenuMain = findViewById(R.id.bn_menu_tin_nhan);
         viewToolbarBackgroudMain = findViewById(R.id.v_toolbar_backgroud_main);
         nestedScrollViewThongTinCaNhan = findViewById(R.id.nsv_main);
 
@@ -216,6 +216,16 @@ public class UserMainActivity extends BaseActivity {
                         }
                     });
         }
+        compositeDisposable.add(apiCommon.layToken(0, "ADMIN")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        nguoiDungModel -> {
+                            Utils.maNguoiNhanTinNhan = String.valueOf(nguoiDungModel.getResult().get(0).getMaNguoiDung());
+                        }, throwable -> {
+
+                        }
+                ));
 
     }
 
@@ -298,7 +308,7 @@ public class UserMainActivity extends BaseActivity {
     }
 
     // Xử lý sự kiện click
-    public void xuLySuKienClick() {
+    public void xuLySuKienClickTimKiem() {
         View.OnClickListener timKiemClickListenner = new View.OnClickListener() {
             @Override
             public void onClick(View view) {

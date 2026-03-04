@@ -220,7 +220,7 @@
 
     <!-- 3. Bottom Navigation (Cố định phía dưới) -->
             <androidx.cardview.widget.CardView
-                android:id="@+id/cv_main"
+                android:id="@+id/cv_tin_nhan"
                 android:layout_width="0dp"
                 android:layout_height="68dp"
                 android:layout_marginBottom="16dp"
@@ -233,7 +233,7 @@
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <com.google.android.material.bottomnavigation.BottomNavigationView
-                    android:id="@+id/bn_menu_main"
+                    android:id="@+id/bn_menu_tin_nhan"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/white"

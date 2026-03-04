@@ -24,10 +24,18 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".admin.tinnhan.AdminTinNhanActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:exported="false" />
+        <activity
+            android:name=".admin.tinnhan.AdminTinNhanDanhSachActivity"
+            android:exported="false" />
+        <activity
             android:name=".user.dathang.UserDatHangThanhCongActivity"
             android:exported="false" />
         <activity
-            android:name=".user.tinnhan.TinNhanActivity"
+            android:name=".user.tinnhan.UserTinNhanActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden"
             android:exported="false" />
         <activity
             android:name=".admin.sanpham.AdminQuanLySanPhamActivity"

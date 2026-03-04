@@ -7,15 +7,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/LightBackgroud"
-    tools:context=".user.tinnhan.UserTinNhanActivity">
+    tools:context=".admin.tinnhan.AdminTinNhanActivity">
 
     <!-- Header Toolbar -->
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/tb_tin_nhan"
+        android:id="@+id/tb_admin_tin_nhan"
         android:background="@color/white"
         app:navigationIconTint = "@color/black"
         android:layout_marginTop="16dp"
         app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_quay_lai"
         app:titleTextColor="@android:color/transparent"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">
@@ -27,11 +28,11 @@
             android:orientation="horizontal">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/civ_hinh_anh_quan_tri_vien_tin_nhan"
+                android:id="@+id/civ_admin_hinh_anh_nguoi_dung_tin_nhan"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:padding="2dp"
-                android:src="@drawable/ic_lien_he" />
+                android:src="@drawable/ic_hinh_anh" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -41,6 +42,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_admin_ho_ten_nguoi_dung_tin_nhan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Hỗ trợ khách hàng"
@@ -61,13 +63,13 @@
 
     <!-- Chat Messages List -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_noi_dung_tin_nhan"
+        android:id="@+id/rv_admin_noi_dung_tin_nhan"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:clipToPadding="false"
         android:padding="16dp"
         app:layout_constraintBottom_toTopOf="@+id/layoutInput"
-        app:layout_constraintTop_toBottomOf="@+id/tb_tin_nhan" />
+        app:layout_constraintTop_toBottomOf="@+id/tb_admin_tin_nhan" />
 
     <!-- Label Today -->
     <TextView
@@ -83,7 +85,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tb_tin_nhan" />
+        app:layout_constraintTop_toBottomOf="@+id/tb_admin_tin_nhan" />
 
     <!-- Input Area -->
     <LinearLayout
@@ -94,7 +96,7 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/cv_tin_nhan">
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.cardview.widget.CardView
             android:layout_width="0dp"
@@ -106,7 +108,7 @@
             app:cardElevation="0dp">
 
             <EditText
-                android:id="@+id/edt_nhap_tin_nhan"
+                android:id="@+id/edt_admin_nhap_tin_nhan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Nhập tin nhắn..."
@@ -124,7 +126,7 @@
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_gui_tin_nhan"
+            android:id="@+id/fab_admin_gui_tin_nhan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_gui_tin_nhan"
@@ -134,29 +136,5 @@
             app:tint="@color/white" />
 
     </LinearLayout>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cv_tin_nhan"
-        android:layout_width="0dp"
-        android:layout_height="68dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:cardCornerRadius="32dp"
-        app:cardElevation="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bn_menu_tin_nhan"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            app:labelVisibilityMode="labeled"
-            app:menu="@menu/user_bottom_navigation_menu"
-            app:itemIconTint="@color/bottom_navigation_color"
-            app:itemTextColor="@color/bottom_navigation_color" />
-    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

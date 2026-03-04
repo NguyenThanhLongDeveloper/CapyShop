@@ -3,25 +3,25 @@
 
     <!-- Mục 1: Trang chủ -->
     <item
-        android:id="@+id/bnm_trang_chu_main"
+        android:id="@+id/bnm_trang_chu"
         android:icon="@drawable/ic_trang_chu"
         android:title="Trang chủ" />
 
     <!-- Mục 2: Chat -->
     <item
-        android:id="@+id/bnm_tin_nhan_main"
+        android:id="@+id/bnm_tin_nhan"
         android:icon="@drawable/ic_tin_nhan"
         android:title="Tin nhắn" />
 
     <!-- Mục 3: Liên hệ -->
     <item
-        android:id="@+id/bnm_lien_he_main"
+        android:id="@+id/bnm_lien_he"
         android:icon="@drawable/ic_lien_he"
         android:title="Liên hệ" />
 
     <!-- Mục 4: Tôi  -->
     <item
-        android:id="@+id/bnm_toi_main"
+        android:id="@+id/bnm_toi"
         android:icon="@drawable/ic_thong_tin_ca_nhan"
         android:title="Tôi" />
 

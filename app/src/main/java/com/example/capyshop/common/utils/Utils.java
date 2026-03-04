@@ -21,8 +21,10 @@ import com.example.capyshop.common.retrofit.RetrofitClient;
 import com.example.capyshop.user.dangnhap.UserDangNhapActivity;
 import com.example.capyshop.user.giohang.UserGioHang;
 import com.example.capyshop.user.giohang.UserGioHangActivity;
+import com.example.capyshop.user.lienhe.UserLienHeActivity;
 import com.example.capyshop.user.main.UserMainActivity;
 import com.example.capyshop.user.thongtincanhan.UserThongTinCaNhanActivity;
+import com.example.capyshop.user.tinnhan.UserTinNhanActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.nex3z.notificationbadge.NotificationBadge;
@@ -51,8 +53,16 @@ public class Utils {
 
     // Đối tượng lưu trữ thông tin người dùng đang đăng nhập hiện tại
     public static NguoiDung userNguoiDung_Current = new NguoiDung();
-    //
+    // Token truy cập cho API Firebase
     public static String accessTokenSend;
+    // Mã người dùng nhận tin nhắn
+    public static String maNguoiNhanTinNhan;
+    // Các trường dữ liệu tin nhắn
+    public static final String maNguoiDungNhanTinNhan = "manguoidungnhantinnhan";
+    public static final String maNguoiDungGuiTinNhan = "manguoidungguitinnhan";
+    public static final String noiDungTinNhan = "noidungtinnhan";
+    public static final String ngayGuiTinNhan = "ngayguitinnhan";
+    public static final String collection = "tinnhan";
 
     // Kiểm tra thiết bị có đang kết nối Wifi hoặc mạng di động hay không.
     public static boolean kiemTraKetNoi(Context context) {
@@ -123,19 +133,35 @@ public class Utils {
 
         // Đánh dấu Tab đang được chọn dựa trên màn hình hiện tại
         if (context instanceof UserMainActivity) {
-            bottomNavigationView.setSelectedItemId(R.id.bnm_trang_chu_main);
+            bottomNavigationView.setSelectedItemId(R.id.bnm_trang_chu);
+        } else if (context instanceof UserTinNhanActivity) {
+            bottomNavigationView.setSelectedItemId(R.id.bnm_tin_nhan);
+        } else if (context instanceof UserLienHeActivity) {
+            bottomNavigationView.setSelectedItemId(R.id.bnm_lien_he);
         } else if (context instanceof UserThongTinCaNhanActivity) {
-            bottomNavigationView.setSelectedItemId(R.id.bnm_toi_main);
+            bottomNavigationView.setSelectedItemId(R.id.bnm_toi);
         }
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
+
             Intent intent = null;
 
             // Logic chuyển trang
-            if (id == R.id.bnm_trang_chu_main && !(context instanceof UserMainActivity)) {
+            if (id == R.id.bnm_trang_chu && !(context instanceof UserMainActivity)) {
                 intent = new Intent(context, UserMainActivity.class);
-            } else if (id == R.id.bnm_toi_main && !(context instanceof UserThongTinCaNhanActivity)) {
+            } else if (id == R.id.bnm_tin_nhan && !(context instanceof UserTinNhanActivity)) {
+//                if (Utils.userNguoiDung_Current == null) {
+//                    Utils.thietLapBottomSheetDialog(context, "Vui lòng đăng nhập", "Vui lòng đăng nhập để sử dụng",
+//                            "Đăng nhập", () -> {
+//                                intent = new Intent(context, UserDangNhapActivity.class);
+//                            });
+//                    return;
+//                }
+                intent = new Intent(context, UserTinNhanActivity.class);
+            } else if (id == R.id.bnm_lien_he && !(context instanceof UserLienHeActivity)) {
+                intent = new Intent(context, UserLienHeActivity.class);
+            } else if (id == R.id.bnm_toi && !(context instanceof UserThongTinCaNhanActivity)) {
                 intent = new Intent(context, UserThongTinCaNhanActivity.class);
             }
 

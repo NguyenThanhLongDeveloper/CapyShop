@@ -394,6 +394,7 @@ public class UserThongTinCaNhanActivity extends BaseActivity {
                                 // Xóa dữ liệu người dùng trong biến toàn cục
                                 Paper.book().destroy();
                                 Utils.userNguoiDung_Current = null;
+                                Utils.maNguoiNhanTinNhan = null;
                                 Utils.accessTokenSend = null;
                                 Intent intent = new Intent(getApplicationContext(), UserMainActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
