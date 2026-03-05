@@ -103,15 +103,6 @@ public class AdminThemSanPhamActivity extends BaseActivity {
         Utils.taiAnhLenServer(this, uri, "sanpham", compositeDisposable, new Utils.OnUploadCallback() {
             @Override
             public void onThanhCong(String tenFileMoi) {
-                // Server returns file name, we need full URL to display
-                // Assuming images are stored in "common/images/" relative to base URL?
-                // Or just filenames?
-                // The API upload.php returns 'name' which is filename.
-                // We will store the full URL in database logic (or assume a base image URL).
-                // Let's assume for now we store the full URL or relative path.
-                // The current app seems to store full URLs or valid paths.
-
-                // Construct full URL (Temporary: modify if server structure differs)
                 String fullUrl = Utils.BASE_URL + "common/images/" + tenFileMoi;
                 listAlbum.add(new ChiTietSanPhamAlbum(fullUrl));
                 addImageToLayout(fullUrl);

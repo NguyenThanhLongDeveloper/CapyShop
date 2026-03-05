@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($email)) {
             $mail->isHTML(true);
             $mail->Subject = "Khôi phục mật khẩu Capy Shop";
 
-            $link = "http://192.168.0.102/capyshop_api/user/quenmatkhau/user_quenmatkhau_reset.php?email=$email&token=$resetToken";
+            $link = "http://192.168.0.103/capyshop_api/user/quenmatkhau/user_quenmatkhau_reset.php?email=$email&token=$resetToken";
             $mail->Body = "Nhấn vào link sau để đặt lại mật khẩu (hết hạn sau 1 giờ):<br><a href='$link'>$link</a>";
 
             $mail->send();

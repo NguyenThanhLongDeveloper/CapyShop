@@ -348,9 +348,11 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="top"
-                                android:lines="1"
+                                android:inputType="textMultiLine"
+                                android:minLines="4"
+                                android:scrollHorizontally="false"
+                                scrollbars="vertical"
                                 android:hint="Nhập mô tả sản phẩm"
-                                android:inputType="text"
                                 android:textColorHint="@color/black"
                                 android:textColor="@color/black" />
                         </com.google.android.material.textfield.TextInputLayout>

@@ -1,6 +1,7 @@
 package com.example.capyshop.admin.main;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -27,7 +28,9 @@ import com.example.capyshop.common.retrofit.ApiCommon;
 import com.example.capyshop.common.retrofit.RetrofitClient;
 import com.example.capyshop.common.utils.Utils;
 import com.example.capyshop.user.main.UserMainActivity;
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -70,7 +73,7 @@ public class AdminMainActivity extends BaseActivity {
     ImageView ivAdminBoLocTongDoanhThuChinh;
 
     // Biểu đồ Doanh thu (Sử dụng MPAndroidChart)
-    com.github.mikephil.charting.charts.LineChart lcAdminTongDoanhThuChinh;
+    LineChart lcAdminTongDoanhThuChinh;
     AppCompatButton btAdminDangXuat;
 
     // --- Xử lý dữ liệu và API ---
@@ -89,10 +92,10 @@ public class AdminMainActivity extends BaseActivity {
         caiDatToolbar();
         layAccessToken();
         layToken();
-        caiDatBieuDoBanDau();
         hienThiThongTinTaiKhoan();
-        xuLySuKienClick();
         layDuLieuTongDoanhThu();
+        caiDatBieuDoBanDau();
+        xuLySuKienClick();
     }
 
     @Override
@@ -149,7 +152,6 @@ public class AdminMainActivity extends BaseActivity {
                     @Override
                     public void run() {
                         Utils.accessTokenSend = accessTokenSend;
-                        Log.d("accesstoken", accessTokenSend);
 
                     }
                 });
@@ -203,8 +205,14 @@ public class AdminMainActivity extends BaseActivity {
                         model -> {
                             if (model.isSuccess()) {
                                 mangTongDoanhThu = model.getResult();
+
                                 long tongTien = 0;
-                                if (mangTongDoanhThu != null) {
+                                if (mangTongDoanhThu == null) {
+
+                                    lcAdminTongDoanhThuChinh.clear();
+                                    lcAdminTongDoanhThuChinh.setNoDataText("Không có dữ liệu");
+                                    lcAdminTongDoanhThuChinh.invalidate();
+                                }else if (mangTongDoanhThu != null) {
                                     for (AdminMainTongDoanhThu item : mangTongDoanhThu) {
                                         tongTien += item.getTongTien();
                                     }
@@ -235,8 +243,11 @@ public class AdminMainActivity extends BaseActivity {
         lcAdminTongDoanhThuChinh.setPinchZoom(false);
         lcAdminTongDoanhThuChinh.setDoubleTapToZoomEnabled(false);
 
-        // Tạo khoảng đệm bên dưới để hiện nhãn trục X không bị cắt
-        lcAdminTongDoanhThuChinh.setViewPortOffsets(0f, 0f, 0f, 60f);
+        // Tạo khoảng đệm bên dưới để hiện nhãn trục X, Y không bị cắt
+        lcAdminTongDoanhThuChinh.setExtraLeftOffset(30f);
+        lcAdminTongDoanhThuChinh.setExtraRightOffset(30f);
+        lcAdminTongDoanhThuChinh.setExtraTopOffset(20f);
+        lcAdminTongDoanhThuChinh.setExtraBottomOffset(20f);
 
         // Cấu hình Trục X (Trục nằm ngang)
         XAxis trucX = lcAdminTongDoanhThuChinh.getXAxis();
@@ -247,7 +258,7 @@ public class AdminMainActivity extends BaseActivity {
         trucX.setTextSize(10f);
         trucX.setTextColor(ContextCompat.getColor(this, R.color.black));
 
-        // Khắc phục lỗi lặp nhãn: Đảm bảo bước nhảy tối thiểu là 1 đơn vị thời gian
+        // Đảm bảo bước nhảy tối thiểu là 1 đơn vị thời gian
         trucX.setGranularityEnabled(true);
         trucX.setGranularity(1f);
         trucX.setAvoidFirstLastClipping(true);
@@ -260,10 +271,12 @@ public class AdminMainActivity extends BaseActivity {
 
     //Hàm hiển thị biểu đồ doanh thu theo khoảng thời gian động
     private void capNhatBieuDo(List<AdminMainTongDoanhThu> duLieuGoc, Date tuNgay, Date denNgay) {
-        if (duLieuGoc == null)
+        if (duLieuGoc == null) {
             return;
+        }
 
         ArrayList<com.github.mikephil.charting.data.Entry> danhSachDiem = new ArrayList<>();
+
         Map<Long, Long> mapDuLieu = new TreeMap<>();
 
         boolean isFiltering = (tuNgay != null && denNgay != null);
@@ -315,7 +328,9 @@ public class AdminMainActivity extends BaseActivity {
                         maxKey = key;
                 }
 
-                rawData.put(key, (rawData.getOrDefault(key, 0L)) + item.getTongTien());
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    rawData.put(key, (rawData.getOrDefault(key, 0L)) + item.getTongTien());
+                }
             } catch (Exception e) {
             }
         }
@@ -334,7 +349,9 @@ public class AdminMainActivity extends BaseActivity {
             current.setTimeInMillis(minKey);
             while (current.getTimeInMillis() <= maxKey) {
                 long key = current.getTimeInMillis();
-                mapDuLieu.put(key, rawData.getOrDefault(key, 0L));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    mapDuLieu.put(key, rawData.getOrDefault(key, 0L));
+                }
                 current.add(stepUnit, 1);
             }
         }
@@ -375,7 +392,17 @@ public class AdminMainActivity extends BaseActivity {
         boDuLieu.setColor(mauChinh);
         boDuLieu.setFillColor(mauChinh);
         boDuLieu.setFillAlpha(40);
-        boDuLieu.setDrawValues(false);
+        boDuLieu.setDrawValues(true);
+        boDuLieu.setValueTextSize(9f);
+        boDuLieu.setValueTextColor(ContextCompat.getColor(this, R.color.black));
+        boDuLieu.setValueFormatter(new ValueFormatter() {
+            private final DecimalFormat format = new DecimalFormat("###,###,###");
+
+            @Override
+            public String getPointLabel(Entry entry) {
+                return format.format(entry.getY()) + " đ";
+            }
+        });
         lcAdminTongDoanhThuChinh.setData(new com.github.mikephil.charting.data.LineData(boDuLieu));
         lcAdminTongDoanhThuChinh.fitScreen(); // Reset trạng thái zoom/stretch cũ
         lcAdminTongDoanhThuChinh.setVisibleXRangeMaximum(5f);
